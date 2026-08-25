@@ -81,7 +81,7 @@ export const MembersDetailModal: React.FC<MembersDetailModalProps> = ({
 
   // Form states
   const [name, setName] = useState('');
-  const [platform, setPlatform] = useState<string>(availablePlatforms[0]?.name || '');
+  const [platform, setPlatform] = useState<string>('');
   const [contact, setContact] = useState('');
   const [amount, setAmount] = useState<number>(availablePlatforms[0]?.pricePerUser || defaultSlotPrice);
   const [memberCurrency, setMemberCurrency] = useState<string>(availablePlatforms[0]?.currency || subscription.currency || 'EUR');
@@ -172,7 +172,7 @@ export const MembersDetailModal: React.FC<MembersDetailModalProps> = ({
 
   const resetForm = () => {
     const firstPlatform = availablePlatforms[0];
-    const initPlat = firstPlatform?.name || '';
+    const initPlat = '';
     const initAmount = firstPlatform && firstPlatform.pricePerUser > 0 ? firstPlatform.pricePerUser : defaultSlotPrice;
     const initCurr = firstPlatform?.currency || subscription.currency || 'EUR';
     const todayStr = new Date().toISOString().split('T')[0];
@@ -203,7 +203,7 @@ export const MembersDetailModal: React.FC<MembersDetailModalProps> = ({
   const populateWithMember = (targetMember: Member) => {
     setEditingMemberId(targetMember.id);
     setName(targetMember.memberName || targetMember.name || '');
-    const currentMemberPlat = targetMember.sharingPlatform || targetMember.platform || (availablePlatforms[0]?.name || '');
+    const currentMemberPlat = targetMember.sharingPlatform || targetMember.platform || '';
     setPlatform(currentMemberPlat);
     setContact(targetMember.memberContact || targetMember.contact || '');
     setAmount(getMemberContributionAmount(subscription, targetMember));
@@ -529,6 +529,28 @@ export const MembersDetailModal: React.FC<MembersDetailModalProps> = ({
 
                   {isPlatformDropdownOpen && (
                     <div className="absolute left-0 right-0 top-full mt-1.5 z-50 bg-card dark:bg-zinc-900 border border-border rounded-2xl shadow-2xl overflow-hidden py-1 max-h-56 overflow-y-auto">
+                      {/* Opción "Sin plataforma" */}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setPlatform('');
+                          setIsPlatformDropdownOpen(false);
+                        }}
+                        className={`w-full px-3.5 py-2.5 text-left text-xs font-semibold flex items-center justify-between hover:bg-muted/80 dark:hover:bg-zinc-800 transition-colors cursor-pointer ${
+                          !platform ? 'bg-indigo-500/10 text-indigo-500 font-bold' : 'text-foreground'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <span
+                            className="w-2.5 h-2.5 rounded-full shrink-0 shadow-xs ring-1 ring-black/10 dark:ring-white/10 bg-slate-400 dark:bg-zinc-500"
+                          />
+                          <span className="truncate">Sin plataforma</span>
+                        </div>
+                        <div className="flex items-center gap-2 shrink-0 ml-2">
+                          {!platform && <Check className="w-4 h-4 text-indigo-500 shrink-0" />}
+                        </div>
+                      </button>
+
                       {availablePlatforms.map((p) => {
                         const isSelected = p.name.toLowerCase() === (platform || '').toLowerCase();
                         return (

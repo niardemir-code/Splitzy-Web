@@ -340,9 +340,9 @@ export const MembersDetailModal: React.FC<MembersDetailModalProps> = ({
         return m;
       });
     } else {
-      // Adding new member
+      // Adding new member with a 64-bit integer digit-only stable ID (interoperable with Android Long)
       const newMember: Member = {
-        id: `mem_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
+        id: String(Date.now() * 1000 + Math.floor(Math.random() * 1000)),
         name: name.trim(),
         memberName: name.trim(),
         platform: platform,

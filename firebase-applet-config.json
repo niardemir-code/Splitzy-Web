@@ -1,12 +1,12 @@
 {
-  "projectId": "splitzy-8ceb1",
-  "appId": "1:345750792662:web:your_web_app_id",
-  "apiKey": "AIzaSyD5S5DI2FSp-LHWmdEhId-5zGETcrqsm78",
-  "authDomain": "splitzy-8ceb1.firebaseapp.com",
+  "projectId": "apleq-76e0a",
+  "appId": "1:498651324948:web:eca4e00e4e709cd98dbd01",
+  "apiKey": "AIzaSyAfdb5NIJtcratWCAebPD41hvWGTe5FSNA",
+  "authDomain": "apleq-76e0a.firebaseapp.com",
   "firestoreDatabaseId": "(default)",
-  "storageBucket": "splitzy-8ceb1.firebasestorage.app",
-  "messagingSenderId": "345750792662",
-  "measurementId": "",
+  "storageBucket": "apleq-76e0a.firebasestorage.app",
+  "messagingSenderId": "498651324948",
+  "measurementId": "G-KPFHMVC0S3",
   "oAuthClientId": "",
   "recaptchaSiteKey": ""
 }

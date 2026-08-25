@@ -29,13 +29,15 @@ export const db = (firebaseConfig.firestoreDatabaseId && firebaseConfig.firestor
 // Initialize Storage
 export const storage = getStorage(app);
 
-// Test Firestore connection on boot as mandated by security skill
+// Test Firestore connection on boot
 async function testConnection() {
   try {
     await getDocFromServer(doc(db, 'test', 'connection'));
-  } catch (error) {
-    if (error instanceof Error && error.message.includes('the client is offline')) {
-      console.warn('Firestore connection check:', error.message);
+  } catch (error: any) {
+    // Expected when unauthenticated, offline, or test doc does not exist
+    if (error?.code === 'unavailable' || error?.message?.includes('offline') || error?.code === 'permission-denied') {
+      // Benign startup check notice
+      return;
     }
   }
 }

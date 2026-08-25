@@ -210,8 +210,13 @@ function parseSafeMembers(rawMembers: any, subBillingDay?: number): Member[] {
 
     const memberCurrency = m.currency || m.memberCurrency || m.currency_code ? normalizeCurrencyToIso(m.currency || m.memberCurrency || m.currency_code) : undefined;
 
+    // Fallback ID must contain ONLY digits (64-bit numeric integer representation)
+    const memberIdStr = m.id !== undefined && m.id !== null && String(m.id).trim() !== ''
+      ? String(m.id)
+      : String(Date.now() * 1000 + Math.floor(Math.random() * 1000));
+
     return {
-      id: String(m.id || `member_${idx}_${Date.now()}`),
+      id: memberIdStr,
       subscriptionId: m.subscriptionId ? String(m.subscriptionId) : (m.subscription_id ? String(m.subscription_id) : undefined),
       name: rawName,
       memberName: rawName,
@@ -403,14 +408,41 @@ export function normalizeSubscriptionDoc(id: string, data: any, defaultUserId: s
   };
 }
 
+/**
+ * Converts or generates a stable numeric ID (compatible with 64-bit integer / Long in Android)
+ * - If already a positive number: returns it directly.
+ * - If digit-only string: parses as Number.
+ * - If legacy non-numeric string (e.g. "mem_172..."): hashes deterministically from its own value (never using index).
+ * - If null / undefined / empty: generates a new timestamp-based 64-bit safe numeric ID.
+ * NEVER derives the ID from array position (idx).
+ */
+export function getStableNumericMemberId(id: string | number | undefined | null): number {
+  if (typeof id === 'number' && !isNaN(id) && id > 0) {
+    return id;
+  }
+  if (typeof id === 'string' && id.trim() !== '') {
+    const clean = id.trim();
+    if (/^\d+$/.test(clean)) {
+      const num = Number(clean);
+      if (!isNaN(num) && num > 0) return num;
+    }
+    // Deterministic hash of legacy non-numeric string (never using list index)
+    let hash = 5381;
+    for (let i = 0; i < clean.length; i++) {
+      hash = ((hash << 5) + hash) + clean.charCodeAt(i);
+      hash = hash & hash;
+    }
+    return Math.abs(hash) || (Date.now() * 1000 + Math.floor(Math.random() * 1000));
+  }
+  return Date.now() * 1000 + Math.floor(Math.random() * 1000);
+}
+
 // Helper to format members with exact Android Kotlin / Firestore schema
 export function formatMembersForFirestore(members: Member[], subBillingDay?: number): any[] {
   const now = Date.now();
   return (members || []).map((m, idx) => {
-    let numId = typeof m.id === 'number' ? m.id : parseInt(String(m.id).replace(/\D/g, ''), 10);
-    if (!numId || isNaN(numId)) {
-      numId = idx + 1;
-    }
+    // Member ID must be stored as a Number for Android Kotlin Long interoperability
+    const numericId = getStableNumericMemberId(m.id);
 
     let joinedDateMs = now;
     if (typeof m.joinedDate === 'number') {
@@ -438,10 +470,8 @@ export function formatMembersForFirestore(members: Member[], subBillingDay?: num
 
     const calculatedNextPaymentDate = resolveMemberNextPaymentDate(m, subBillingDay);
 
-    const memberId = m.id !== undefined && m.id !== null ? m.id : numId;
-
     return {
-      id: memberId,
+      id: numericId,
       // Exact member schema fields requested
       memberName: nameStr,
       sharingPlatform: platformStr,
@@ -580,11 +610,11 @@ function mergeMemberArrays(...sources: (Member[] | undefined)[]): Member[] {
     }
   }
 
-  // Renumber sequential IDs for clean presentation and sorting
+  // Preserve member IDs faithfully without altering their identities
   const list = Array.from(memberMap.values());
   return list.map((m, idx) => ({
     ...m,
-    id: m.id ? String(m.id) : String(idx + 1),
+    id: m.id ? String(m.id) : String(Date.now() * 1000 + Math.floor(Math.random() * 1000)),
     memberName: m.memberName || m.name || `Miembro ${idx + 1}`,
     name: m.memberName || m.name || `Miembro ${idx + 1}`,
     sharingPlatform: m.sharingPlatform || m.platform || 'Sharesub',

@@ -53,6 +53,7 @@ export const SubscriptionDetailView: React.FC<SubscriptionDetailViewProps> = ({
   isMobile,
 }) => {
   const [isUpdating, setIsUpdating] = useState(false);
+  const [confirmDeleteMemberId, setConfirmDeleteMemberId] = useState<string | number | null>(null);
   const { convertToEur, isEur, getRateFor } = useCurrency();
   const { platforms } = useSharingPlatforms();
 
@@ -75,6 +76,7 @@ export const SubscriptionDetailView: React.FC<SubscriptionDetailViewProps> = ({
   // Direct deletion of a member without opening the modal
   const handleDirectDeleteMember = (memberId: string | number) => {
     if (!subscription || !onUpdateSubscription) return;
+    setConfirmDeleteMemberId(null);
     const updatedMembers = (subscription.members || []).filter(
       (m) => String(m.id) !== String(memberId)
     );
@@ -498,18 +500,44 @@ export const SubscriptionDetailView: React.FC<SubscriptionDetailViewProps> = ({
                           <Edit2 className="w-3.5 h-3.5" />
                         </button>
 
-                        <button
-                          id={`btn-detail-delete-member-${member.id}`}
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleDirectDeleteMember(member.id);
-                          }}
-                          className="p-1.5 rounded-lg text-rose-500 hover:text-rose-600 dark:text-rose-400 dark:hover:text-rose-300 hover:bg-rose-500/10 active:scale-95 transition-all cursor-pointer"
-                          title="Eliminar usuario directamente"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
+                        {confirmDeleteMemberId === member.id ? (
+                          <div className="flex items-center gap-1 p-0.5 rounded-lg bg-rose-500/10 border border-rose-500/30 ml-1">
+                            <span className="text-[10px] font-bold text-rose-600 dark:text-rose-400 px-1">¿Eliminar?</span>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDirectDeleteMember(member.id);
+                              }}
+                              className="py-0.5 px-2 rounded-md bg-rose-600 hover:bg-rose-500 text-white text-[10px] font-bold transition-colors shadow-xs cursor-pointer active:scale-95"
+                            >
+                              Sí
+                            </button>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setConfirmDeleteMemberId(null);
+                              }}
+                              className="py-0.5 px-1.5 rounded-md bg-muted text-muted-foreground text-[10px] font-medium hover:bg-muted/80 cursor-pointer"
+                            >
+                              No
+                            </button>
+                          </div>
+                        ) : (
+                          <button
+                            id={`btn-detail-delete-member-${member.id}`}
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setConfirmDeleteMemberId(member.id);
+                            }}
+                            className="p-1.5 rounded-lg text-rose-500 hover:text-rose-600 dark:text-rose-400 dark:hover:text-rose-300 hover:bg-rose-500/10 active:scale-95 transition-all cursor-pointer"
+                            title="Eliminar usuario"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>

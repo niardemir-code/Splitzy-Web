@@ -118,11 +118,11 @@ function parseSafeMembers(rawMembers: any, subBillingDay?: number): Member[] {
       m.platform || 
       m.sharing_platform || 
       m.service || 
-      'Sharesub'
+      ''
     );
-    const matchedPlatform = VALID_PLATFORMS.find(
-      (p) => p.toLowerCase() === rawPlatform.toLowerCase()
-    ) || rawPlatform;
+    const matchedPlatform = rawPlatform
+      ? (VALID_PLATFORMS.find((p) => p.toLowerCase() === rawPlatform.toLowerCase()) || rawPlatform)
+      : '';
 
     const rawAmount = m.contributionAmount ?? m.amount ?? m.contribution_amount ?? m.price ?? m.cost ?? 0;
     const amount = typeof rawAmount === 'number' ? rawAmount : parseFloat(String(rawAmount)) || 0;

@@ -237,6 +237,7 @@ function SplitzyApp() {
           updatedAt: new Date().toISOString(),
         };
         setSubscriptions((prev) => [optimisticSub, ...prev]);
+        setSelectedSubscriptionId(String(newNumericId));
 
         createSubscription(user.uid, completeData, newNumericId).catch((err) => {
           console.error('Error creating subscription in Firestore:', err);
@@ -262,6 +263,7 @@ function SplitzyApp() {
           updatedAt: new Date().toISOString(),
         };
         setLocalGuestSubscriptions((prev) => [newSub, ...prev]);
+        setSelectedSubscriptionId(String(newNumericId));
       }
     }
   };

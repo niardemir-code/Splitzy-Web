@@ -397,7 +397,7 @@ export const SubscriptionDetailView: React.FC<SubscriptionDetailViewProps> = ({
             <div className="space-y-2">
               {members.map((member, index) => {
                 const memberDisplayName = member.memberName || member.name || 'Miembro';
-                const memberPlatform = member.sharingPlatform || member.platform || 'Sharesub';
+                const memberPlatform = member.sharingPlatform || member.platform || '';
                 const memberCost = getMemberContributionAmount(subscription, member);
                 const memberPlatformInfo = getMemberPlatformInfo(subscription, member);
 

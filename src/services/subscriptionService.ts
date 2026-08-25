@@ -5,6 +5,7 @@ import {
   setDoc, 
   updateDoc, 
   deleteDoc, 
+  getDocs,
   query, 
   where,
   writeBatch
@@ -463,7 +464,7 @@ export function formatMembersForFirestore(members: Member[], subBillingDay?: num
       : (!isPendingPayment && String(m.paymentStatus).toLowerCase() === 'paid');
 
     const nameStr = String(m.memberName || m.name || `Miembro ${idx + 1}`).trim();
-    const platformStr = String(m.sharingPlatform || m.platform || 'Sharesub').trim();
+    const platformStr = String(m.sharingPlatform || m.platform || '').trim();
     const contactStr = String(m.memberContact || m.contact || '').trim();
     const notesStr = String(m.notes || '').trim();
     const paymentStatusStr = isPaidThisMonth ? 'paid' : (isPendingPayment ? 'pending' : (m.paymentStatus || 'pending'));
@@ -583,8 +584,8 @@ function mergeMemberArrays(...sources: (Member[] | undefined)[]): Member[] {
           ...existing,
           memberName: existing.memberName || existing.name || m.memberName || m.name,
           name: existing.memberName || existing.name || m.memberName || m.name,
-          sharingPlatform: existing.sharingPlatform || existing.platform || m.sharingPlatform || m.platform || 'Sharesub',
-          platform: existing.sharingPlatform || existing.platform || m.sharingPlatform || m.platform || 'Sharesub',
+          sharingPlatform: existing.sharingPlatform || existing.platform || m.sharingPlatform || m.platform || '',
+          platform: existing.sharingPlatform || existing.platform || m.sharingPlatform || m.platform || '',
           memberContact: existing.memberContact || existing.contact || m.memberContact || m.contact || '',
           contact: existing.memberContact || existing.contact || m.memberContact || m.contact || '',
           notes: existing.notes || m.notes || '',
@@ -617,8 +618,8 @@ function mergeMemberArrays(...sources: (Member[] | undefined)[]): Member[] {
     id: m.id ? String(m.id) : String(Date.now() * 1000 + Math.floor(Math.random() * 1000)),
     memberName: m.memberName || m.name || `Miembro ${idx + 1}`,
     name: m.memberName || m.name || `Miembro ${idx + 1}`,
-    sharingPlatform: m.sharingPlatform || m.platform || 'Sharesub',
-    platform: m.sharingPlatform || m.platform || 'Sharesub',
+    sharingPlatform: m.sharingPlatform || m.platform || '',
+    platform: m.sharingPlatform || m.platform || '',
     memberContact: m.memberContact || m.contact || '',
     contact: m.memberContact || m.contact || '',
     nextPaymentDate: resolveMemberNextPaymentDate(m),
@@ -899,6 +900,15 @@ export async function deleteSubscription(
 ): Promise<void> {
   const docId = String(subId);
   try {
+    // 1. Obtener y borrar todos los documentos de la subcolección members
+    const membersCollectionRef = collection(db, 'users', userId, 'subscriptions', docId, 'members');
+    const membersSnapshot = await getDocs(membersCollectionRef);
+    if (!membersSnapshot.empty) {
+      const deleteMemberPromises = membersSnapshot.docs.map((memberDoc) => deleteDoc(memberDoc.ref));
+      await Promise.all(deleteMemberPromises);
+    }
+
+    // 2. Borrar el documento principal de la suscripción
     await deleteDoc(doc(db, 'users', userId, 'subscriptions', docId));
   } catch (error) {
     handleFirestoreError(error, OperationType.DELETE, `users/${userId}/subscriptions/${docId}`);
@@ -1094,7 +1104,7 @@ export function generateAndroidBackupJson(subscriptions: Subscription[]): string
         id: memberCounter++,
         subscriptionId: subNumericId,
         memberName: m.memberName || m.name || 'Usuario',
-        sharingPlatform: m.sharingPlatform || m.platform || 'Sharesub',
+        sharingPlatform: m.sharingPlatform || m.platform || '',
         memberContact: m.memberContact || m.contact || '',
         joinedDate: now,
         contributionAmount: m.contributionAmount ?? m.amount ?? 0.0,

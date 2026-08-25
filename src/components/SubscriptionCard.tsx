@@ -336,7 +336,7 @@ export const SubscriptionCard: React.FC<SubscriptionCardProps> = ({
             <div className="space-y-2 max-h-52 overflow-y-auto pr-1">
               {members.map((member) => {
                 const memberDisplayName = member.memberName || member.name || 'Miembro';
-                const memberPlatform = member.sharingPlatform || member.platform || 'Sharesub';
+                const memberPlatform = member.sharingPlatform || member.platform || '';
                 const memberCost = getMemberContributionAmount(subscription, member);
 
                 let memberCardBg = 'bg-slate-800/40 border-slate-800/80 hover:bg-slate-800/70';

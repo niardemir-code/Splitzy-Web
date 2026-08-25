@@ -16,6 +16,10 @@ export const PlatformBadge: React.FC<PlatformBadgeProps> = ({
   showIcon = true,
   className = '',
 }) => {
+  if (!platform || !platform.trim()) {
+    return null;
+  }
+
   const { platforms } = useSharingPlatforms();
   const info = getSharingPlatformInfo(platform, platforms);
 

@@ -939,8 +939,21 @@ export async function updateSubscriptionMembers(
   try {
     await setDoc(userDocRef, updateData, { merge: true });
 
-    // Concurrently update members subcollection
+    // Concurrently update members subcollection and delete orphaned members
     const backgroundTasks: Promise<any>[] = [];
+    const validMemberIdSet = new Set(formattedMembers.map((mItem) => String(mItem.id)));
+
+    const membersCollectionRef = collection(db, 'users', userId, 'subscriptions', docId, 'members');
+    const existingMembersSnapshot = await getDocs(membersCollectionRef);
+
+    for (const memberDoc of existingMembersSnapshot.docs) {
+      if (!validMemberIdSet.has(memberDoc.id)) {
+        backgroundTasks.push(
+          deleteDoc(memberDoc.ref).catch(() => {})
+        );
+      }
+    }
+
     for (const mItem of formattedMembers) {
       const memDocId = String(mItem.id);
       const memPayload = {

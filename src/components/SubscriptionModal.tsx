@@ -349,6 +349,12 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
     e.preventDefault();
     if (!platformName.trim()) return;
 
+    // If CUSTOM_IMAGE is chosen but uri is missing, do not submit without image URL
+    if (iconType === 'CUSTOM_IMAGE' && !customImageUri && !customImageBase64) {
+      setShowIconSelector(true);
+      return;
+    }
+
     const serializedPricing = serializePlatformPricing(configuredPlatforms);
 
     // Synchronize existing members' contributionAmount with updated platform prices and ensure nextPaymentDate is populated

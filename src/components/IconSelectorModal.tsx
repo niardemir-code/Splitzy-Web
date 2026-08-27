@@ -155,13 +155,18 @@ export const IconSelectorModal: React.FC<IconSelectorModalProps> = ({
   };
 
   const handleSave = () => {
+    if (isUploading) return;
+
     if (activeTab === 'CUSTOM_IMAGE' && (customImageUri || customImageBase64)) {
+      // In online/authenticated mode, customImageUri is the download URL from Firebase Storage.
+      // If offline/unauthenticated, customImageUri contains the local dataUri.
+      const finalUri = customImageUri || customImageBase64 || '';
       onSelect({
         iconType: 'CUSTOM_IMAGE',
         iconKey: selectedKey || platformName || 'Custom',
         iconColorHex: selectedColor,
-        customImageUri: customImageUri || '',
-        customImageBase64: customImageUri ? '' : (customImageBase64 || ''),
+        customImageUri: finalUri,
+        customImageBase64: '',
       });
     } else {
       onSelect({
@@ -587,11 +592,20 @@ export const IconSelectorModal: React.FC<IconSelectorModalProps> = ({
           <button
             type="button"
             onClick={handleSave}
-            disabled={isUploading}
-            className="px-5 py-2.5 rounded-2xl text-xs font-extrabold bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white shadow-lg shadow-blue-600/20 transition-all cursor-pointer flex items-center gap-2"
+            disabled={isUploading || (activeTab === 'CUSTOM_IMAGE' && !customImageUri && !customImageBase64)}
+            className="px-5 py-2.5 rounded-2xl text-xs font-extrabold bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white shadow-lg shadow-blue-600/20 transition-all cursor-pointer flex items-center gap-2"
           >
-            <Check className="w-4 h-4" />
-            <span>Aplicar icono</span>
+            {isUploading ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                <span>Subiendo imagen...</span>
+              </>
+            ) : (
+              <>
+                <Check className="w-4 h-4" />
+                <span>Aplicar icono</span>
+              </>
+            )}
           </button>
         </div>
       </div>

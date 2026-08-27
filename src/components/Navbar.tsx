@@ -1,14 +1,12 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
-import { SplitzyLogo } from './SplitzyLogo';
 import { 
   Plus, 
   Sun, 
   Moon, 
   LogOut, 
   LogIn, 
-  Database,
   Settings,
   Bell
 } from 'lucide-react';
@@ -40,24 +38,11 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
         {/* Brand / Logo */}
         <div className="flex items-center gap-3">
-          <div className="relative">
-            <SplitzyLogo size={42} />
-            <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-card" title="Sincronizado con la nube" />
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="font-extrabold text-xl tracking-tight text-foreground flex items-center">
-                Splitzy<span className="text-indigo-500">.</span>
-              </span>
-              <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-500 border border-indigo-500/20">
-                <Database className="w-3 h-3 text-emerald-500" />
-                Sincronizado
-              </span>
-            </div>
-            <p className="text-[11px] text-muted-foreground hidden sm:block font-medium">
-              Gestor de suscripciones compartidas
-            </p>
-          </div>
+          <img
+            src={isDark ? '/apleq_lockup_web_oscuro.png' : '/apleq_lockup_web_claro.png'}
+            alt="Apleq"
+            className="h-9 w-auto object-contain select-none"
+          />
         </div>
 
         {/* Right action controls */}

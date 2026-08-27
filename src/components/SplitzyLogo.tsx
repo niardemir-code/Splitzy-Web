@@ -33,7 +33,7 @@ export const SplitzyLogo: React.FC<SplitzyLogoProps> = ({
       {!imageError ? (
         <img
           src="/logo.png"
-          alt="Splitzy Logo"
+          alt="Apleq"
           referrerPolicy="no-referrer"
           className="w-full h-full object-contain rounded-2xl"
           onError={() => setImageError(true)}

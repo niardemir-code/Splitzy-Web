@@ -53,9 +53,9 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
     : notifications;
 
   const handleCopyReminder = (notif: AppNotification) => {
-    const sub = subscriptions.find((s) => s.id === notif.subscriptionId);
+    const sub = subscriptions.find((s) => String(s.id) === String(notif.subscriptionId));
     if (!sub) return;
-    const member = (sub.members || []).find((m) => m.id === notif.memberId);
+    const member = (sub.members || []).find((m) => String(m.id) === String(notif.memberId));
     if (!member) return;
 
     const text = generateMemberReminderText(sub, member, ownerName);
@@ -65,9 +65,9 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
   };
 
   const handleOpenWhatsApp = (notif: AppNotification) => {
-    const sub = subscriptions.find((s) => s.id === notif.subscriptionId);
+    const sub = subscriptions.find((s) => String(s.id) === String(notif.subscriptionId));
     if (!sub) return;
-    const member = (sub.members || []).find((m) => m.id === notif.memberId);
+    const member = (sub.members || []).find((m) => String(m.id) === String(notif.memberId));
     if (!member) return;
 
     const text = generateMemberReminderText(sub, member, ownerName);
@@ -76,7 +76,7 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
   };
 
   const handleGoToMember = (notif: AppNotification) => {
-    const sub = subscriptions.find((s) => s.id === notif.subscriptionId);
+    const sub = subscriptions.find((s) => String(s.id) === String(notif.subscriptionId));
     if (!sub) return;
     onOpenMemberDetail(sub, notif.memberId);
     onClose();

@@ -91,7 +91,7 @@ function SplitzyApp() {
         setSubscriptions(data);
         setSelectedSubForMembers((prev) => {
           if (!prev) return null;
-          return data.find((s) => s.id === prev.id) || prev;
+          return data.find((s) => String(s.id) === String(prev.id)) || prev;
         });
         setLoadingData(false);
       },
@@ -148,11 +148,11 @@ function SplitzyApp() {
   };
 
   const handleMarkMemberPaidFromNotification = async (subscriptionId: string, memberId: string) => {
-    const sub = activeSubscriptions.find((s) => s.id === subscriptionId);
+    const sub = activeSubscriptions.find((s) => String(s.id) === String(subscriptionId));
     if (!sub) return;
     await handleToggleMemberPayment(subscriptionId, sub.members || [], memberId);
     // Also mark this notification as read
-    const notif = notifications.find((n) => n.subscriptionId === subscriptionId && n.memberId === memberId);
+    const notif = notifications.find((n) => String(n.subscriptionId) === String(subscriptionId) && String(n.memberId) === String(memberId));
     if (notif && !readNotificationIds.includes(notif.id)) {
       handleToggleNotificationRead(notif.id);
     }
@@ -224,7 +224,7 @@ function SplitzyApp() {
         // Optimistic UI update for instant feedback
         setSubscriptions((prev) =>
           prev.map((s) =>
-            s.id === subModalInitialData.id
+            String(s.id) === String(subModalInitialData.id)
               ? { ...s, ...subData, updatedAt: new Date().toISOString() }
               : s
           )
@@ -255,7 +255,7 @@ function SplitzyApp() {
       if (subModalInitialData && subModalInitialData.id) {
         setLocalGuestSubscriptions((prev) =>
           prev.map((s) =>
-            s.id === subModalInitialData.id
+            String(s.id) === String(subModalInitialData.id)
               ? { ...s, ...subData, updatedAt: new Date().toISOString() }
               : s
           )
@@ -277,8 +277,8 @@ function SplitzyApp() {
 
   const handleDeleteSubscription = async (subId: string) => {
     // Optimistic UI update so the subscription disappears immediately
-    setSubscriptions((prev) => prev.filter((s) => s.id !== subId));
-    setLocalGuestSubscriptions((prev) => prev.filter((s) => s.id !== subId));
+    setSubscriptions((prev) => prev.filter((s) => String(s.id) !== String(subId)));
+    setLocalGuestSubscriptions((prev) => prev.filter((s) => String(s.id) !== String(subId)));
 
     if (user) {
       try {
@@ -288,7 +288,7 @@ function SplitzyApp() {
       }
     }
 
-    if (selectedSubForMembers?.id === subId) {
+    if (selectedSubForMembers && String(selectedSubForMembers.id) === String(subId)) {
       setIsMembersModalOpen(false);
       setSelectedSubForMembers(null);
     }
@@ -309,9 +309,9 @@ function SplitzyApp() {
       };
       setLocalGuestSubscriptions((prev) =>
         prev.map((s) => {
-          if (s.id === subId) {
+          if (String(s.id) === String(subId)) {
             const updated = s.members.map((m) => {
-              if (m.id === memberId) {
+              if (String(m.id) === String(memberId)) {
                 const next = nextStatusMap[m.paymentStatus] || 'paid';
                 return {
                   ...m,
@@ -336,7 +336,7 @@ function SplitzyApp() {
       const today = new Date().toISOString().split('T')[0];
       setLocalGuestSubscriptions((prev) =>
         prev.map((s) => {
-          if (s.id === subId) {
+          if (String(s.id) === String(subId)) {
             const updated = s.members.map((m) => ({
               ...m,
               paymentStatus: 'paid' as const,
@@ -405,7 +405,7 @@ function SplitzyApp() {
   const currentSelectedSubForModal = useMemo(() => {
     if (!selectedSubForMembers) return null;
     const currentList = user ? subscriptions : localGuestSubscriptions;
-    return currentList.find((s) => s.id === selectedSubForMembers.id) || selectedSubForMembers;
+    return currentList.find((s) => String(s.id) === String(selectedSubForMembers.id)) || selectedSubForMembers;
   }, [subscriptions, localGuestSubscriptions, selectedSubForMembers, user]);
 
   // Master Filter and Sort Logic
@@ -507,8 +507,10 @@ function SplitzyApp() {
   // Active selected subscription for the right detail panel
   const activeSelectedSubscription = useMemo(() => {
     if (!filteredSubscriptions.length) return null;
-    if (selectedSubscriptionId) {
-      const found = filteredSubscriptions.find((s) => s.id === selectedSubscriptionId);
+    if (selectedSubscriptionId != null) {
+      const found = filteredSubscriptions.find(
+        (s) => String(s.id) === String(selectedSubscriptionId)
+      );
       if (found) return found;
     }
     return filteredSubscriptions[0] || null;

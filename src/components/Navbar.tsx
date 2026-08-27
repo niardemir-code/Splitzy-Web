@@ -41,7 +41,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <img
             src={isDark ? '/apleq_lockup_web_oscuro.png' : '/apleq_lockup_web_claro.png'}
             alt="Apleq"
-            className="h-9 w-auto object-contain select-none"
+            className="h-14 w-auto object-contain select-none"
           />
         </div>
 

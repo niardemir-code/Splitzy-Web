@@ -331,13 +331,17 @@ export const PlatformIconBadge: React.FC<PlatformIconBadgeProps> = ({
             : `data:image/jpeg;base64,${customImageBase64}`)
         : undefined);
 
-  if (iconType === 'CUSTOM_IMAGE' && imageSource && imageSource.trim() !== '') {
+  const isCustomImage = (iconType === 'CUSTOM_IMAGE' || Boolean(customImageUri?.trim()) || Boolean(customImageBase64?.trim())) && Boolean(imageSource && imageSource.trim() !== '');
+
+  if (isCustomImage && imageSource) {
     return (
       <div 
+        key={`badge-wrap-${imageSource}`}
         className={`${sizeClass} ${roundedClass} overflow-hidden border border-border/80 flex items-center justify-center relative shadow-sm flex-shrink-0 bg-muted/40 ${className}`}
         style={{ backgroundColor: `${iconColorHex}15` }}
       >
         <img
+          key={imageSource}
           src={imageSource}
           alt={platformName}
           referrerPolicy="no-referrer"

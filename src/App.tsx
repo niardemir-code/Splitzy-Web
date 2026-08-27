@@ -640,6 +640,7 @@ function SplitzyApp() {
               {/* Right Column: Full Subscription Details View */}
               <div className={`md:col-span-8 lg:col-span-8 ${!showMobileDetail ? 'hidden md:block' : 'block'}`}>
                 <SubscriptionDetailView
+                  key={activeSelectedSubscription ? `sub-detail-${activeSelectedSubscription.id}-${activeSelectedSubscription.customImageUri || ''}-${activeSelectedSubscription.iconType || ''}` : 'sub-detail-empty'}
                   subscription={activeSelectedSubscription}
                   onEdit={handleEditSub}
                   onDelete={handleDeleteSubscription}

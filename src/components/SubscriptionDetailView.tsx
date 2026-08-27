@@ -193,6 +193,7 @@ export const SubscriptionDetailView: React.FC<SubscriptionDetailViewProps> = ({
                 title="Editar suscripción y cambiar icono"
               >
                 <PlatformIconBadge
+                  key={`detail-icon-${subscription.id}-${subscription.customImageUri || ''}-${subscription.iconType || ''}`}
                   platformName={displayName}
                   iconType={subscription.iconType}
                   iconKey={subscription.iconKey}

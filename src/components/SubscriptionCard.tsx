@@ -130,6 +130,7 @@ export const SubscriptionCard: React.FC<SubscriptionCardProps> = ({
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-center gap-3.5 min-w-0">
               <PlatformIconBadge
+                key={`card-icon-${subscription.id}-${subscription.customImageUri || ''}-${subscription.iconType || ''}`}
                 platformName={displayName}
                 iconType={subscription.iconType}
                 iconKey={subscription.iconKey}

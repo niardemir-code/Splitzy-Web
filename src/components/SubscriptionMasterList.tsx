@@ -220,6 +220,7 @@ export const SubscriptionMasterList: React.FC<SubscriptionMasterListProps> = ({
 
                 <div className="flex items-center gap-3 min-w-0">
                   <PlatformIconBadge
+                    key={`list-icon-${sub.id}-${sub.customImageUri || ''}-${sub.iconType || ''}`}
                     platformName={displayName}
                     iconType={sub.iconType}
                     iconKey={sub.iconKey}

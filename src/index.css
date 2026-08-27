@@ -1,5 +1,19 @@
 @import "tailwindcss";
 
+@theme {
+  --color-blue-50: #eef6ff;
+  --color-blue-100: #d9ebff;
+  --color-blue-200: #bcdcff;
+  --color-blue-300: #8ec7ff;
+  --color-blue-400: #58a8fb;
+  --color-blue-500: #1285fa;
+  --color-blue-600: #0a6ee0;
+  --color-blue-700: #0a58b8;
+  --color-blue-800: #0e4a94;
+  --color-blue-900: #123f78;
+  --color-blue-950: #0c2749;
+}
+
 @layer base {
   :root {
     color-scheme: light;

@@ -60,7 +60,7 @@ export const SubscriptionDetailView: React.FC<SubscriptionDetailViewProps> = ({
   if (!subscription) {
     return (
       <div className="h-full flex flex-col items-center justify-center p-8 text-center bg-card border border-border rounded-3xl min-h-[420px]">
-        <div className="w-16 h-16 rounded-3xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-500 mb-4 shadow-md">
+        <div className="w-16 h-16 rounded-3xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-500 mb-4 shadow-md">
           <CreditCard className="w-8 h-8" />
         </div>
         <h3 className="text-lg font-bold text-foreground mb-1">
@@ -176,7 +176,7 @@ export const SubscriptionDetailView: React.FC<SubscriptionDetailViewProps> = ({
             <button
               onClick={onBackToList}
               type="button"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-500 hover:text-indigo-600 mb-4 cursor-pointer"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-500 hover:text-blue-600 mb-4 cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Volver a la lista</span>
@@ -189,7 +189,7 @@ export const SubscriptionDetailView: React.FC<SubscriptionDetailViewProps> = ({
               <button
                 type="button"
                 onClick={() => onEdit(subscription)}
-                className="relative group cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-2xl shrink-0"
+                className="relative group cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-2xl shrink-0"
                 title="Editar suscripción y cambiar icono"
               >
                 <PlatformIconBadge
@@ -312,7 +312,7 @@ export const SubscriptionDetailView: React.FC<SubscriptionDetailViewProps> = ({
             <span className="text-[10px] font-extrabold uppercase tracking-wider text-muted-foreground">
               Renovación
             </span>
-            <p className="text-lg sm:text-xl font-extrabold text-indigo-600 dark:text-indigo-400 mt-1">
+            <p className="text-lg sm:text-xl font-extrabold text-blue-600 dark:text-blue-400 mt-1">
               {renewalDisplayText}
             </p>
             <p className="text-[11px] text-muted-foreground mt-0.5">
@@ -325,7 +325,7 @@ export const SubscriptionDetailView: React.FC<SubscriptionDetailViewProps> = ({
         {configuredPlatforms.length > 0 && (
           <div className="p-4 rounded-2xl bg-muted/30 border border-border space-y-2.5">
             <div className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-muted-foreground">
-              <Share2 className="w-3.5 h-3.5 text-indigo-500" />
+              <Share2 className="w-3.5 h-3.5 text-blue-500" />
               <span>Plataformas de compartición configuradas ({configuredPlatforms.length})</span>
             </div>
 
@@ -387,7 +387,7 @@ export const SubscriptionDetailView: React.FC<SubscriptionDetailViewProps> = ({
               <button
                 onClick={() => onManageMembers(subscription)}
                 type="button"
-                className="mt-3 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/30 text-indigo-600 dark:text-indigo-400 text-xs font-bold transition-colors cursor-pointer"
+                className="mt-3 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 text-blue-600 dark:text-blue-400 text-xs font-bold transition-colors cursor-pointer"
               >
                 <UserPlus className="w-3.5 h-3.5" />
                 <span>Añadir miembros</span>
@@ -469,10 +469,10 @@ export const SubscriptionDetailView: React.FC<SubscriptionDetailViewProps> = ({
                         title={`Próximo pago: ${member.nextPaymentDate}${member.paymentFrequencyValue ? ` (cada ${member.paymentFrequencyValue} ${member.paymentFrequencyUnit || 'meses'})` : ''}${member.enableAlarm ? ` | Alarma: ${member.alarmUnit === 'same_day' || member.alarmValue === 0 || member.alarmDaysBefore === 0 ? 'El mismo día' : `${member.alarmValue ?? member.alarmDaysBefore ?? 3} ${member.alarmUnit || 'días'} antes`}` : ''}`}
                         className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 py-1 rounded-xl bg-muted/80 text-muted-foreground border border-border shrink-0 self-start sm:self-center"
                       >
-                        <Calendar className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
+                        <Calendar className="w-3.5 h-3.5 text-blue-500 shrink-0" />
                         <span>{new Date(member.nextPaymentDate).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit' })}</span>
                         {member.enableAlarm && (
-                          <Bell className="w-2.5 h-2.5 text-indigo-500 fill-indigo-500 ml-0.5 shrink-0" />
+                          <Bell className="w-2.5 h-2.5 text-blue-500 fill-blue-500 ml-0.5 shrink-0" />
                         )}
                       </div>
                     )}
@@ -549,10 +549,10 @@ export const SubscriptionDetailView: React.FC<SubscriptionDetailViewProps> = ({
                 id="btn-detail-add-member"
                 onClick={() => onManageMembers(subscription)}
                 type="button"
-                className="w-full mt-2 py-3 px-4 rounded-2xl border-2 border-dashed border-indigo-500/30 hover:border-indigo-500 bg-indigo-500/5 hover:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs active:scale-[0.99]"
+                className="w-full mt-2 py-3 px-4 rounded-2xl border-2 border-dashed border-blue-500/30 hover:border-blue-500 bg-blue-500/5 hover:bg-blue-500/10 text-blue-600 dark:text-blue-400 text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs active:scale-[0.99]"
                 title="Añadir un nuevo co-suscriptor"
               >
-                <UserPlus className="w-4 h-4 text-indigo-500" />
+                <UserPlus className="w-4 h-4 text-blue-500" />
                 <span>Añadir usuario</span>
               </button>
             </div>

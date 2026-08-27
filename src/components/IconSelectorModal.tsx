@@ -200,7 +200,7 @@ export const IconSelectorModal: React.FC<IconSelectorModalProps> = ({
         {/* Header */}
         <div className="p-5 border-b border-border flex items-center justify-between bg-muted/40 shrink-0">
           <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-indigo-500/10 text-indigo-500 border border-indigo-500/20">
+            <div className="p-2 rounded-xl bg-blue-500/10 text-blue-500 border border-blue-500/20">
               <Palette className="w-5 h-5" />
             </div>
             <div>
@@ -243,7 +243,7 @@ export const IconSelectorModal: React.FC<IconSelectorModalProps> = ({
                 <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-md bg-muted text-muted-foreground border border-border">
                   {activeTab === 'CUSTOM_IMAGE' ? (
                     <>
-                      <ImageIcon className="w-3 h-3 text-indigo-500" />
+                      <ImageIcon className="w-3 h-3 text-blue-500" />
                       Imagen personalizada
                     </>
                   ) : (
@@ -308,7 +308,7 @@ export const IconSelectorModal: React.FC<IconSelectorModalProps> = ({
                         title={c.label}
                         className={`w-8 h-8 rounded-full transition-transform flex items-center justify-center cursor-pointer border ${
                           isSelected 
-                            ? 'scale-110 ring-2 ring-indigo-500 ring-offset-2 ring-offset-card border-white' 
+                            ? 'scale-110 ring-2 ring-blue-500 ring-offset-2 ring-offset-card border-white' 
                             : 'hover:scale-105 border-white/10'
                         }`}
                         style={{ backgroundColor: c.hex }}
@@ -347,7 +347,7 @@ export const IconSelectorModal: React.FC<IconSelectorModalProps> = ({
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     placeholder="Buscar servicio o icono (Netflix, Spotify, TV, Música...)"
-                    className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-muted/50 border border-border text-foreground placeholder-muted-foreground text-xs font-semibold focus:outline-none focus:border-indigo-500"
+                    className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-muted/50 border border-border text-foreground placeholder-muted-foreground text-xs font-semibold focus:outline-none focus:border-blue-500"
                   />
                   {searchTerm && (
                     <button
@@ -369,7 +369,7 @@ export const IconSelectorModal: React.FC<IconSelectorModalProps> = ({
                       onClick={() => setSelectedCategory(cat)}
                       className={`px-3 py-1 rounded-lg text-[11px] font-bold whitespace-nowrap transition-all cursor-pointer ${
                         selectedCategory === cat
-                          ? 'bg-indigo-600 text-white shadow-xs'
+                          ? 'bg-blue-600 text-white shadow-xs'
                           : 'bg-muted/60 text-muted-foreground hover:text-foreground hover:bg-muted'
                       }`}
                     >
@@ -396,7 +396,7 @@ export const IconSelectorModal: React.FC<IconSelectorModalProps> = ({
                             onClick={() => handleSelectPreset(preset)}
                             className={`p-2.5 rounded-2xl border text-left flex items-center gap-2.5 transition-all cursor-pointer ${
                               isSelected
-                                ? 'bg-indigo-500/10 border-indigo-500 ring-1 ring-indigo-500 text-foreground'
+                                ? 'bg-blue-500/10 border-blue-500 ring-1 ring-blue-500 text-foreground'
                                 : 'bg-card border-border hover:bg-muted/40 text-muted-foreground hover:text-foreground'
                             }`}
                           >
@@ -442,7 +442,7 @@ export const IconSelectorModal: React.FC<IconSelectorModalProps> = ({
                             title={item.label}
                             className={`p-2 rounded-2xl border flex flex-col items-center justify-center gap-1.5 transition-all cursor-pointer ${
                               isSelected
-                                ? 'bg-indigo-500/10 border-indigo-500 ring-1 ring-indigo-500 text-indigo-500'
+                                ? 'bg-blue-500/10 border-blue-500 ring-1 ring-blue-500 text-blue-500'
                                 : 'bg-card border-border hover:bg-muted/40 text-muted-foreground hover:text-foreground'
                             }`}
                           >
@@ -481,12 +481,12 @@ export const IconSelectorModal: React.FC<IconSelectorModalProps> = ({
                 className={`border-2 border-dashed rounded-3xl p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-all ${
                   customImageUri || customImageBase64
                     ? 'border-border bg-muted/20 hover:bg-muted/30'
-                    : 'border-indigo-500/40 bg-indigo-500/5 hover:bg-indigo-500/10 hover:border-indigo-500'
+                    : 'border-blue-500/40 bg-blue-500/5 hover:bg-blue-500/10 hover:border-blue-500'
                 }`}
               >
                 {isUploading ? (
                   <div className="flex flex-col items-center justify-center gap-3">
-                    <Loader2 className="w-10 h-10 text-indigo-500 animate-spin" />
+                    <Loader2 className="w-10 h-10 text-blue-500 animate-spin" />
                     <p className="text-sm font-bold text-foreground">
                       Subiendo imagen a Firebase Storage...
                     </p>
@@ -522,7 +522,7 @@ export const IconSelectorModal: React.FC<IconSelectorModalProps> = ({
                   </div>
                 ) : (
                   <div className="flex flex-col items-center gap-3">
-                    <div className="p-4 rounded-2xl bg-indigo-500/10 text-indigo-500 border border-indigo-500/20">
+                    <div className="p-4 rounded-2xl bg-blue-500/10 text-blue-500 border border-blue-500/20">
                       <Upload className="w-8 h-8" />
                     </div>
                     <div>
@@ -535,7 +535,7 @@ export const IconSelectorModal: React.FC<IconSelectorModalProps> = ({
                     </div>
                     <button
                       type="button"
-                      className="mt-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition-colors cursor-pointer"
+                      className="mt-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-colors cursor-pointer"
                     >
                       Examinar galería / archivos
                     </button>
@@ -587,7 +587,7 @@ export const IconSelectorModal: React.FC<IconSelectorModalProps> = ({
             type="button"
             onClick={handleSave}
             disabled={isUploading}
-            className="px-5 py-2.5 rounded-2xl text-xs font-extrabold bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white shadow-lg shadow-indigo-600/20 transition-all cursor-pointer flex items-center gap-2"
+            className="px-5 py-2.5 rounded-2xl text-xs font-extrabold bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white shadow-lg shadow-blue-600/20 transition-all cursor-pointer flex items-center gap-2"
           >
             <Check className="w-4 h-4" />
             <span>Aplicar icono</span>

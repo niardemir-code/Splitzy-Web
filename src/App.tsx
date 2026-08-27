@@ -537,7 +537,7 @@ function SplitzyApp() {
         {!user && (
           <div className="mb-6 p-4.5 rounded-2xl bg-card border border-border text-foreground shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-3.5">
-              <div className="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-500 border border-indigo-500/20 shrink-0">
+              <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-500 border border-blue-500/20 shrink-0">
                 <Database className="w-5 h-5" />
               </div>
               <div>
@@ -553,7 +553,7 @@ function SplitzyApp() {
               id="btn-banner-signin"
               onClick={signIn}
               type="button"
-              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-md shadow-indigo-600/20 transition-colors shrink-0 cursor-pointer"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-md shadow-blue-600/20 transition-colors shrink-0 cursor-pointer"
             >
               <LogIn className="w-4 h-4" />
               <span>Conectar con Google</span>
@@ -592,7 +592,7 @@ function SplitzyApp() {
         {/* Content Section */}
         {loadingData ? (
           <div className="py-20 text-center">
-            <RefreshCw className="w-8 h-8 text-indigo-500 animate-spin mx-auto mb-3" />
+            <RefreshCw className="w-8 h-8 text-blue-500 animate-spin mx-auto mb-3" />
             <p className="text-sm font-semibold text-muted-foreground">
               Sincronizando suscripciones con Cloud Firestore...
             </p>

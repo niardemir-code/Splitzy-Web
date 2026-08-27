@@ -160,22 +160,22 @@ export const CurrencySelect: React.FC<CurrencySelectProps> = ({
     if (variant === 'dark') {
       return {
         button:
-          'bg-[#202234] border-border/80 text-slate-100 hover:border-indigo-500/80 focus:border-indigo-500',
+          'bg-[#202234] border-border/80 text-slate-100 hover:border-blue-500/80 focus:border-blue-500',
         menu: 'bg-[#1b1d2e] border-slate-700 text-slate-100 shadow-2xl shadow-black/80 ring-1 ring-slate-700/50',
-        item: 'hover:bg-indigo-600/20 text-slate-200 hover:text-white',
-        selectedItem: 'bg-indigo-600/30 text-indigo-300 font-bold',
+        item: 'hover:bg-blue-600/20 text-slate-200 hover:text-white',
+        selectedItem: 'bg-blue-600/30 text-blue-300 font-bold',
         search:
-          'bg-[#141523] border-slate-700/80 text-slate-100 placeholder-slate-500 focus:border-indigo-500',
+          'bg-[#141523] border-slate-700/80 text-slate-100 placeholder-slate-500 focus:border-blue-500',
       };
     }
     return {
       button:
-        'bg-muted/50 border-border text-foreground hover:border-indigo-500/70 focus:border-indigo-500',
+        'bg-muted/50 border-border text-foreground hover:border-blue-500/70 focus:border-blue-500',
       menu: 'bg-card border-border text-foreground shadow-2xl shadow-black/30 dark:shadow-black/70 ring-1 ring-black/5 dark:ring-white/10',
       item: 'hover:bg-muted text-foreground',
-      selectedItem: 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-bold',
+      selectedItem: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 font-bold',
       search:
-        'bg-muted/60 border-border text-foreground placeholder-muted-foreground focus:border-indigo-500',
+        'bg-muted/60 border-border text-foreground placeholder-muted-foreground focus:border-blue-500',
     };
   };
 
@@ -200,7 +200,7 @@ export const CurrencySelect: React.FC<CurrencySelectProps> = ({
             setSearchTerm('');
           }
         }}
-        className={`w-full flex items-center justify-between gap-2 rounded-2xl border text-xs font-semibold transition-all cursor-pointer outline-none focus:ring-2 focus:ring-indigo-500/20 ${
+        className={`w-full flex items-center justify-between gap-2 rounded-2xl border text-xs font-semibold transition-all cursor-pointer outline-none focus:ring-2 focus:ring-blue-500/20 ${
           compact ? 'px-3 py-2.5 rounded-xl' : 'px-3.5 py-3'
         } ${vStyles.button} ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
       >
@@ -284,7 +284,7 @@ export const CurrencySelect: React.FC<CurrencySelectProps> = ({
                       </div>
 
                       {isSelected && (
-                        <Check className="w-4 h-4 shrink-0 text-indigo-500 dark:text-indigo-400" />
+                        <Check className="w-4 h-4 shrink-0 text-blue-500 dark:text-blue-400" />
                       )}
                     </div>
                   );

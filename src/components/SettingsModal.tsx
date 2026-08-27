@@ -258,7 +258,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
     {
       mode: 'DARK',
       label: 'Oscuro',
-      icon: <Moon className="w-5 h-5 text-indigo-400" />,
+      icon: <Moon className="w-5 h-5 text-blue-400" />,
       desc: 'Tema oscuro con tonos relajantes',
     },
     {
@@ -278,7 +278,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
         {/* Header */}
         <div className="p-5 border-b border-border flex items-center justify-between bg-muted/40">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-indigo-600/10 text-indigo-500 border border-indigo-500/20 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-2xl bg-blue-600/10 text-blue-500 border border-blue-500/20 flex items-center justify-center">
               <Settings className="w-5 h-5" />
             </div>
             <div>
@@ -307,7 +307,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             onClick={() => setActiveTab('appearance')}
             className={`pb-3 px-3 text-xs font-bold transition-all border-b-2 flex items-center gap-2 cursor-pointer ${
               activeTab === 'appearance'
-                ? 'border-indigo-500 text-indigo-500'
+                ? 'border-blue-500 text-blue-500'
                 : 'border-transparent text-muted-foreground hover:text-foreground'
             }`}
           >
@@ -320,7 +320,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             onClick={() => setActiveTab('platforms')}
             className={`pb-3 px-3 text-xs font-bold transition-all border-b-2 flex items-center gap-2 cursor-pointer ${
               activeTab === 'platforms'
-                ? 'border-indigo-500 text-indigo-500'
+                ? 'border-blue-500 text-blue-500'
                 : 'border-transparent text-muted-foreground hover:text-foreground'
             }`}
           >
@@ -333,7 +333,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             onClick={() => setActiveTab('backup')}
             className={`pb-3 px-3 text-xs font-bold transition-all border-b-2 flex items-center gap-2 cursor-pointer ${
               activeTab === 'backup'
-                ? 'border-indigo-500 text-indigo-500'
+                ? 'border-blue-500 text-blue-500'
                 : 'border-transparent text-muted-foreground hover:text-foreground'
             }`}
           >
@@ -380,7 +380,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                       }}
                       className={`flex flex-col items-start p-4 rounded-2xl border text-left transition-all relative cursor-pointer ${
                         isSelected
-                          ? 'bg-indigo-500/10 border-indigo-500 shadow-md ring-2 ring-indigo-500/20'
+                          ? 'bg-blue-500/10 border-blue-500 shadow-md ring-2 ring-blue-500/20'
                           : 'bg-muted/40 border-border hover:bg-muted hover:border-slate-400 dark:hover:border-slate-600'
                       }`}
                     >
@@ -389,10 +389,10 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                           {option.icon}
                         </div>
                         {isSelected && (
-                          <span className="w-3 h-3 rounded-full bg-indigo-500 ring-4 ring-indigo-500/20" />
+                          <span className="w-3 h-3 rounded-full bg-blue-500 ring-4 ring-blue-500/20" />
                         )}
                       </div>
-                      <span className={`text-xs font-bold ${isSelected ? 'text-indigo-600 dark:text-indigo-400' : 'text-foreground'}`}>
+                      <span className={`text-xs font-bold ${isSelected ? 'text-blue-600 dark:text-blue-400' : 'text-foreground'}`}>
                         {option.label}
                       </span>
                       <span className="text-[11px] text-muted-foreground mt-1">
@@ -411,7 +411,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div>
                   <h3 className="text-sm font-bold text-foreground tracking-tight flex items-center gap-2">
-                    <Layers className="w-4 h-4 text-indigo-500" />
+                    <Layers className="w-4 h-4 text-blue-500" />
                     Plataformas de compartición
                   </h3>
                   <p className="text-xs text-muted-foreground">
@@ -429,14 +429,14 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     return (
                       <div
                         key={platform.id}
-                        className="p-3.5 rounded-2xl bg-indigo-500/10 border border-indigo-500/50 flex flex-col gap-3"
+                        className="p-3.5 rounded-2xl bg-blue-500/10 border border-blue-500/50 flex flex-col gap-3"
                       >
                         <div className="flex items-center gap-2">
                           <input
                             type="text"
                             value={editPlatformName}
                             onChange={(e) => setEditPlatformName(e.target.value)}
-                            className="flex-1 px-3 py-2 rounded-xl bg-card border border-border text-foreground text-xs font-semibold focus:outline-none focus:border-indigo-500"
+                            className="flex-1 px-3 py-2 rounded-xl bg-card border border-border text-foreground text-xs font-semibold focus:outline-none focus:border-blue-500"
                             placeholder="Nombre de la plataforma"
                             autoFocus
                           />
@@ -477,7 +477,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                               onClick={() => setEditPlatformColor(c)}
                               className={`w-4 h-4 rounded-full transition-transform cursor-pointer ${
                                 editPlatformColor.toLowerCase() === c.toLowerCase()
-                                  ? 'scale-125 ring-2 ring-indigo-500 shadow'
+                                  ? 'scale-125 ring-2 ring-blue-500 shadow'
                                   : 'opacity-70 hover:opacity-100'
                               }`}
                               style={{ backgroundColor: c }}
@@ -530,11 +530,11 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               {showAddForm ? (
                 <form
                   onSubmit={handleAddPlatform}
-                  className="p-4 rounded-2xl bg-card border border-indigo-500/40 space-y-3"
+                  className="p-4 rounded-2xl bg-card border border-blue-500/40 space-y-3"
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-bold text-foreground flex items-center gap-1.5">
-                      <Plus className="w-3.5 h-3.5 text-indigo-500" />
+                      <Plus className="w-3.5 h-3.5 text-blue-500" />
                       Nueva plataforma personalizada
                     </span>
                     <button
@@ -553,7 +553,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                       value={newPlatformName}
                       onChange={(e) => setNewPlatformName(e.target.value)}
                       placeholder="Nombre (ej. Pulpo, Spliiit Pro, etc.)"
-                      className="flex-1 px-3.5 py-2 rounded-xl bg-muted/50 border border-border text-foreground placeholder-muted-foreground text-xs font-semibold focus:outline-none focus:border-indigo-500"
+                      className="flex-1 px-3.5 py-2 rounded-xl bg-muted/50 border border-border text-foreground placeholder-muted-foreground text-xs font-semibold focus:outline-none focus:border-blue-500"
                       autoFocus
                       required
                     />
@@ -567,7 +567,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     <button
                       type="submit"
                       disabled={isSubmittingAdd || !newPlatformName.trim()}
-                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white text-xs font-bold shadow-md shadow-indigo-600/20 transition-all cursor-pointer"
+                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white text-xs font-bold shadow-md shadow-blue-600/20 transition-all cursor-pointer"
                     >
                       <Plus className="w-3.5 h-3.5" />
                       <span>Guardar</span>
@@ -582,7 +582,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                         onClick={() => setNewPlatformColor(c)}
                         className={`w-5 h-5 rounded-full transition-transform cursor-pointer ${
                           newPlatformColor.toLowerCase() === c.toLowerCase()
-                            ? 'scale-125 ring-2 ring-indigo-500 shadow'
+                            ? 'scale-125 ring-2 ring-blue-500 shadow'
                             : 'opacity-70 hover:opacity-100'
                         }`}
                         style={{ backgroundColor: c }}
@@ -600,7 +600,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     id="btn-add-custom-platform"
                     type="button"
                     onClick={() => setShowAddForm(true)}
-                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-2xl bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 border border-indigo-500/30 text-xs font-bold transition-all shadow-xs cursor-pointer active:scale-98"
+                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-2xl bg-blue-500/10 hover:bg-blue-500/20 text-blue-600 dark:text-blue-400 border border-blue-500/30 text-xs font-bold transition-all shadow-xs cursor-pointer active:scale-98"
                   >
                     <Plus className="w-4 h-4" />
                     <span>Añadir plataforma personalizada</span>
@@ -627,7 +627,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-sm font-bold text-foreground tracking-tight flex items-center gap-2">
-                    <FileJson className="w-4 h-4 text-indigo-500" />
+                    <FileJson className="w-4 h-4 text-blue-500" />
                     Copia de Seguridad JSON
                   </h3>
                   <p className="text-xs text-muted-foreground">
@@ -667,7 +667,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                 <div className="space-y-3 pt-2">
                   <div className="flex items-center justify-between gap-3 p-3.5 rounded-2xl bg-muted/40 border border-border">
                     <div className="flex items-center gap-3">
-                      <div className="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-500">
+                      <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-500">
                         <Smartphone className="w-5 h-5" />
                       </div>
                       <div>
@@ -684,7 +684,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                       <button
                         type="button"
                         onClick={handleCopyJson}
-                        className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-all shadow-xs cursor-pointer active:scale-95"
+                        className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all shadow-xs cursor-pointer active:scale-95"
                       >
                         {copied ? <Check className="w-3.5 h-3.5 text-emerald-200" /> : <Copy className="w-3.5 h-3.5" />}
                         <span>{copied ? '¡Copiado!' : 'Copiar JSON'}</span>
@@ -736,13 +736,13 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                       }}
                       placeholder="Pega aquí el contenido JSON de tu copia de seguridad..."
                       rows={5}
-                      className="w-full p-3 font-mono text-[11px] bg-card border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-indigo-500"
+                      className="w-full p-3 font-mono text-[11px] bg-card border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-blue-500"
                     />
                   </div>
 
                   <div className="flex items-center justify-between gap-3 flex-wrap">
                     <label className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-card border border-border hover:bg-muted text-foreground text-xs font-bold transition-all cursor-pointer shadow-xs">
-                      <Upload className="w-3.5 h-3.5 text-indigo-500" />
+                      <Upload className="w-3.5 h-3.5 text-blue-500" />
                       <span>Cargar archivo .json</span>
                       <input
                         type="file"
@@ -757,7 +757,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                         type="checkbox"
                         checked={replaceExisting}
                         onChange={(e) => setReplaceExisting(e.target.checked)}
-                        className="rounded border-border text-indigo-600 focus:ring-indigo-500"
+                        className="rounded border-border text-blue-600 focus:ring-blue-500"
                       />
                       <span>Reemplazar datos existentes</span>
                     </label>
@@ -766,7 +766,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                       type="button"
                       onClick={handleExecuteImport}
                       disabled={!jsonInput.trim() || importStatus.type === 'loading'}
-                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white text-xs font-bold transition-all shadow-md shadow-indigo-600/20 cursor-pointer"
+                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white text-xs font-bold transition-all shadow-md shadow-blue-600/20 cursor-pointer"
                     >
                       <Database className="w-3.5 h-3.5" />
                       <span>{importStatus.type === 'loading' ? 'Importando...' : 'Restaurar ahora'}</span>
@@ -800,7 +800,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             id="btn-close-settings-footer"
             onClick={onClose}
             type="button"
-            className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-colors cursor-pointer"
+            className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-colors cursor-pointer"
           >
             Cerrar
           </button>

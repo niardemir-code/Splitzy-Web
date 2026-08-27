@@ -319,7 +319,7 @@ export const CurrencyFlag: React.FC<CurrencyFlagProps> = ({
       // Generic fallback badge with currency symbol and subtle styling
       return (
         <span
-          className={`inline-flex items-center justify-center font-bold text-[9px] bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 rounded-[2px] ring-1 ring-border ${sizeClasses} ${className}`}
+          className={`inline-flex items-center justify-center font-bold text-[9px] bg-blue-500/20 text-blue-600 dark:text-blue-400 rounded-[2px] ring-1 ring-border ${sizeClasses} ${className}`}
         >
           {code.substring(0, 3)}
         </span>

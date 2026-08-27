@@ -28,7 +28,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
         <button
           onClick={onClearFilters}
           type="button"
-          className="mt-5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-colors shadow-lg shadow-indigo-600/25 cursor-pointer"
+          className="mt-5 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-colors shadow-lg shadow-blue-600/25 cursor-pointer"
         >
           Limpiar todos los filtros
         </button>
@@ -55,7 +55,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
           id="btn-empty-new-sub"
           onClick={onNewSubscription}
           type="button"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 active:scale-98 text-white font-bold text-xs sm:text-sm shadow-lg shadow-indigo-600/25 transition-all cursor-pointer"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 active:scale-98 text-white font-bold text-xs sm:text-sm shadow-lg shadow-blue-600/25 transition-all cursor-pointer"
         >
           <Plus className="w-4 h-4 stroke-[2.5]" />
           <span>Crear Primera Suscripción</span>

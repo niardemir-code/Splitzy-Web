@@ -191,7 +191,7 @@ export const SubscriptionCard: React.FC<SubscriptionCardProps> = ({
                       type="button"
                       className="w-full flex items-center gap-2.5 px-3.5 py-2 text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white"
                     >
-                      <Users className="w-4 h-4 text-indigo-400" />
+                      <Users className="w-4 h-4 text-blue-400" />
                       <span>Gestionar miembros</span>
                     </button>
                     <button
@@ -267,7 +267,7 @@ export const SubscriptionCard: React.FC<SubscriptionCardProps> = ({
           {/* Pricing Info Banner */}
           <div className="mt-3.5 p-3 rounded-2xl bg-slate-800/40 border border-slate-800/60 flex items-center justify-between gap-2">
             <div className="flex items-center gap-2 text-xs text-slate-400">
-              <Calendar className="w-4 h-4 text-indigo-400 shrink-0" />
+              <Calendar className="w-4 h-4 text-blue-400 shrink-0" />
               <span>
                 {billingDateText}
               </span>
@@ -326,7 +326,7 @@ export const SubscriptionCard: React.FC<SubscriptionCardProps> = ({
               <button
                 onClick={() => onManageMembers(subscription)}
                 type="button"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border border-indigo-500/30 text-xs font-bold transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-500/30 text-xs font-bold transition-colors"
               >
                 <UserPlus className="w-3.5 h-3.5" />
                 <span>Añadir miembro</span>
@@ -391,10 +391,10 @@ export const SubscriptionCard: React.FC<SubscriptionCardProps> = ({
                             title={`Próximo pago: ${member.nextPaymentDate}${member.paymentFrequencyValue ? ` (cada ${member.paymentFrequencyValue} ${member.paymentFrequencyUnit || 'meses'})` : ''}${member.enableAlarm ? ` | Alarma: ${member.alarmUnit === 'same_day' || member.alarmValue === 0 || member.alarmDaysBefore === 0 ? 'El mismo día' : `${member.alarmValue ?? member.alarmDaysBefore ?? 3} ${member.alarmUnit || 'días'} antes`}` : ''}`}
                             className="inline-flex items-center gap-1 text-[9px] font-semibold px-1.5 py-0.5 rounded bg-slate-900/60 text-slate-300 border border-slate-700/60"
                           >
-                            <Calendar className="w-2.5 h-2.5 text-indigo-400" />
+                            <Calendar className="w-2.5 h-2.5 text-blue-400" />
                             <span>{new Date(member.nextPaymentDate).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit' })}</span>
                             {member.enableAlarm && (
-                              <Bell className="w-2 h-2 text-indigo-400 fill-indigo-400 ml-0.5" />
+                              <Bell className="w-2 h-2 text-blue-400 fill-blue-400 ml-0.5" />
                             )}
                           </span>
                         )}
@@ -427,7 +427,7 @@ export const SubscriptionCard: React.FC<SubscriptionCardProps> = ({
             type="button"
             className="w-full inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 border border-slate-700/60 text-slate-200 text-xs font-bold transition-colors"
           >
-            <Users className="w-4 h-4 text-indigo-400" />
+            <Users className="w-4 h-4 text-blue-400" />
             <span>Gestionar ({members.length} miembros)</span>
           </button>
         </div>

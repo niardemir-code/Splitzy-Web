@@ -93,7 +93,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             value={filters.search}
             onChange={handleSearchChange}
             placeholder="Buscar suscripciones por nombre, plan, miembro, plataforma..."
-            className="w-full pl-11 pr-9 py-2.5 rounded-full bg-slate-900/50 border border-slate-800 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-indigo-500 transition-colors shadow-xs"
+            className="w-full pl-11 pr-9 py-2.5 rounded-full bg-slate-900/50 border border-slate-800 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 transition-colors shadow-xs"
           />
           {filters.search && (
             <button
@@ -114,7 +114,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
               id="select-filter-platform"
               value={filters.platform}
               onChange={handlePlatformChange}
-              className="w-full appearance-none pl-4 pr-8 py-2.5 rounded-full bg-slate-900/60 border border-slate-800 text-slate-200 text-xs font-semibold focus:outline-none focus:border-indigo-500 shadow-xs cursor-pointer"
+              className="w-full appearance-none pl-4 pr-8 py-2.5 rounded-full bg-slate-900/60 border border-slate-800 text-slate-200 text-xs font-semibold focus:outline-none focus:border-blue-500 shadow-xs cursor-pointer"
             >
               <option value="ALL" className="bg-[#0f0f0f] text-slate-200">Cualquier plataforma</option>
               {platforms.map((p) => (
@@ -132,7 +132,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
               id="select-sort-by"
               value={filters.sortBy}
               onChange={handleSortChange}
-              className="w-full appearance-none pl-4 pr-8 py-2.5 rounded-full bg-slate-900/60 border border-slate-800 text-slate-200 text-xs font-semibold focus:outline-none focus:border-indigo-500 shadow-xs cursor-pointer"
+              className="w-full appearance-none pl-4 pr-8 py-2.5 rounded-full bg-slate-900/60 border border-slate-800 text-slate-200 text-xs font-semibold focus:outline-none focus:border-blue-500 shadow-xs cursor-pointer"
             >
               <option value="renewal" className="bg-[#0f0f0f] text-slate-200">📅 Próxima renovación</option>
               <option value="cost_desc" className="bg-[#0f0f0f] text-slate-200">💰 Mayor coste</option>

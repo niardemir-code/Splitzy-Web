@@ -56,7 +56,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               hasUnread
                 ? 'bg-amber-500/15 dark:bg-amber-400/20 border-amber-500/50 text-amber-600 dark:text-amber-300 ring-2 ring-amber-500/30 shadow-md shadow-amber-500/10 hover:bg-amber-500/25'
                 : hasNotifications
-                ? 'bg-indigo-500/10 border-indigo-500/30 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-500/20'
+                ? 'bg-blue-500/10 border-blue-500/30 text-blue-600 dark:text-blue-400 hover:bg-blue-500/20'
                 : 'bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground border-border'
             }`}
             title={
@@ -79,7 +79,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* Subtle dot when notifications exist but all read */}
             {!hasUnread && hasNotifications && (
-              <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-indigo-500 ring-1 ring-card" />
+              <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-blue-500 ring-1 ring-card" />
             )}
           </button>
 
@@ -95,7 +95,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {isDark ? (
               <Sun className="w-4 h-4 text-amber-500" />
             ) : (
-              <Moon className="w-4 h-4 text-indigo-500" />
+              <Moon className="w-4 h-4 text-blue-500" />
             )}
           </button>
 
@@ -108,7 +108,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             title="Configuración general, plataformas y copia JSON"
             aria-label="Configuración"
           >
-            <Settings className="w-4 h-4 text-indigo-500" />
+            <Settings className="w-4 h-4 text-blue-500" />
             <span className="hidden sm:inline">Configuración</span>
           </button>
 
@@ -117,7 +117,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             id="btn-nav-new-sub"
             onClick={onNewSubscription}
             type="button"
-            className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 text-xs sm:text-sm font-bold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white active:scale-98 shadow-md shadow-indigo-600/20 transition-all cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 text-xs sm:text-sm font-bold rounded-xl bg-blue-600 hover:bg-blue-500 text-white active:scale-98 shadow-md shadow-blue-600/20 transition-all cursor-pointer"
           >
             <Plus className="w-4 h-4 stroke-[2.5]" />
             <span>Nueva <span className="hidden sm:inline">Suscripción</span></span>
@@ -129,7 +129,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           ) : user ? (
             <div className="flex items-center gap-2 pl-1 sm:pl-2 border-l border-border">
               <div className="relative group">
-                <div className="flex items-center gap-2.5 cursor-pointer bg-muted/70 border border-border rounded-full pl-1.5 pr-3 py-1 hover:border-indigo-500/50 transition-colors">
+                <div className="flex items-center gap-2.5 cursor-pointer bg-muted/70 border border-border rounded-full pl-1.5 pr-3 py-1 hover:border-blue-500/50 transition-colors">
                   {user.photoURL ? (
                     <img
                       src={user.photoURL}
@@ -138,7 +138,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       referrerPolicy="no-referrer"
                     />
                   ) : (
-                    <div className="w-7 h-7 rounded-full bg-indigo-600 text-white font-bold text-xs flex items-center justify-center">
+                    <div className="w-7 h-7 rounded-full bg-blue-600 text-white font-bold text-xs flex items-center justify-center">
                       {(user.displayName || user.email || 'U').charAt(0).toUpperCase()}
                     </div>
                   )}
@@ -177,10 +177,10 @@ export const Navbar: React.FC<NavbarProps> = ({
               id="btn-user-signin"
               onClick={signIn}
               type="button"
-              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-bold rounded-xl bg-muted border border-border text-foreground hover:border-indigo-500/50 shadow-xs transition-all cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-bold rounded-xl bg-muted border border-border text-foreground hover:border-blue-500/50 shadow-xs transition-all cursor-pointer"
               title="Iniciar sesión con Google para sincronizar tus suscripciones"
             >
-              <LogIn className="w-3.5 h-3.5 text-indigo-500" />
+              <LogIn className="w-3.5 h-3.5 text-blue-500" />
               <span className="hidden sm:inline">Conectar Google</span>
             </button>
           )}

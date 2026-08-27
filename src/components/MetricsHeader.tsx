@@ -82,12 +82,12 @@ export const MetricsHeader: React.FC<MetricsHeaderProps> = ({
           <div className={`p-3 rounded-xl border flex items-center gap-3 ${
             isProfit 
               ? 'bg-emerald-500/10 border-emerald-500/30' 
-              : 'bg-indigo-500/10 border-indigo-500/30'
+              : 'bg-blue-500/10 border-blue-500/30'
           }`}>
             <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
               isProfit 
                 ? 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30' 
-                : 'bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 border border-indigo-500/30'
+                : 'bg-blue-500/20 text-blue-600 dark:text-blue-400 border border-blue-500/30'
             }`}>
               {isProfit ? <TrendingUp className="w-5 h-5" /> : <PiggyBank className="w-5 h-5" />}
             </div>
@@ -139,9 +139,9 @@ export const MetricsHeader: React.FC<MetricsHeaderProps> = ({
 
         {/* Bottom Row: Suscripciones & Miembros activos */}
         <div className="grid grid-cols-2 gap-2.5 sm:gap-3 mt-2.5 pt-2.5 border-t border-border">
-          <div className="px-3.5 py-2 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center sm:justify-start gap-2">
-            <Layers className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0" />
-            <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400">
+          <div className="px-3.5 py-2 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center sm:justify-start gap-2">
+            <Layers className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
+            <span className="text-xs font-bold text-blue-600 dark:text-blue-400">
               {subscriptions.length} {subscriptions.length === 1 ? 'Suscripción' : 'Suscripciones'}
             </span>
           </div>

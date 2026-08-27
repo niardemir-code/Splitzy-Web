@@ -63,7 +63,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
               <button
                 onClick={this.handleReset}
                 type="button"
-                className="w-full py-3 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors shadow-lg shadow-indigo-600/25"
+                className="w-full py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors shadow-lg shadow-blue-600/25"
               >
                 <RefreshCw className="w-4 h-4" />
                 <span>Reintentar y Recargar</span>

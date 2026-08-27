@@ -98,7 +98,7 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
         {/* Modal Header */}
         <div className="px-6 py-4.5 border-b border-border bg-muted/30 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="relative p-2.5 rounded-2xl bg-indigo-500/10 text-indigo-500 border border-indigo-500/20">
+            <div className="relative p-2.5 rounded-2xl bg-blue-500/10 text-blue-500 border border-blue-500/20">
               <Bell className="w-5 h-5" />
               {unreadCount > 0 && (
                 <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-rose-500 animate-ping" />
@@ -159,7 +159,7 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
             >
               <span>Pendientes de leer</span>
               {unreadCount > 0 && (
-                <span className="w-4 h-4 rounded-full bg-indigo-600 text-white text-[10px] flex items-center justify-center font-bold">
+                <span className="w-4 h-4 rounded-full bg-blue-600 text-white text-[10px] flex items-center justify-center font-bold">
                   {unreadCount}
                 </span>
               )}
@@ -171,7 +171,7 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
               id="btn-mark-all-notifs-read"
               type="button"
               onClick={onMarkAllAsRead}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 hover:bg-indigo-100 dark:hover:bg-indigo-900 text-indigo-600 dark:text-indigo-400 text-xs font-bold border border-indigo-200 dark:border-indigo-800/60 transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-950/50 hover:bg-blue-100 dark:hover:bg-blue-900 text-blue-600 dark:text-blue-400 text-xs font-bold border border-blue-200 dark:border-blue-800/60 transition-colors cursor-pointer"
             >
               <CheckCheck className="w-3.5 h-3.5" />
               <span>Marcar todas como leídas</span>
@@ -183,7 +183,7 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
         <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-3.5">
           {displayedNotifications.length === 0 ? (
             <div className="text-center py-14 px-4 space-y-3">
-              <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 text-indigo-500 mx-auto flex items-center justify-center border border-indigo-500/20">
+              <div className="w-14 h-14 rounded-2xl bg-blue-500/10 text-blue-500 mx-auto flex items-center justify-center border border-blue-500/20">
                 <CheckCircle2 className="w-7 h-7" />
               </div>
               <h3 className="text-sm font-bold text-foreground">
@@ -209,13 +209,13 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
                   id={`notif-card-${notif.id}`}
                   className={`relative p-4 rounded-2xl border transition-all duration-200 ${
                     isUnread
-                      ? 'bg-indigo-500/5 dark:bg-indigo-950/30 border-indigo-500/40 shadow-sm ring-1 ring-indigo-500/20'
+                      ? 'bg-blue-500/5 dark:bg-blue-950/30 border-blue-500/40 shadow-sm ring-1 ring-blue-500/20'
                       : 'bg-card border-border/80 opacity-85 hover:opacity-100 hover:border-border'
                   }`}
                 >
                   {/* Unread Accent Pill */}
                   {isUnread && (
-                    <div className="absolute -top-2.5 left-4 flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-indigo-600 text-white text-[9px] font-black tracking-wider uppercase shadow-xs">
+                    <div className="absolute -top-2.5 left-4 flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-blue-600 text-white text-[9px] font-black tracking-wider uppercase shadow-xs">
                       <span className="w-1.5 h-1.5 rounded-full bg-amber-300 animate-pulse" />
                       Pendiente de leer
                     </div>
@@ -240,7 +240,7 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
                           <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-muted text-muted-foreground border border-border">
                             {notif.subscriptionName}
                           </span>
-                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
+                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400">
                             {notif.sharingPlatform}
                           </span>
                         </div>
@@ -253,7 +253,7 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
                                 ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20'
                                 : isToday
                                 ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20'
-                                : 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20'
+                                : 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20'
                             }`}
                           >
                             {isOverdue ? (
@@ -299,7 +299,7 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
                         onClick={() => onToggleRead(notif.id)}
                         className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
                           isUnread
-                            ? 'text-indigo-600 dark:text-indigo-400 hover:bg-indigo-500/10'
+                            ? 'text-blue-600 dark:text-blue-400 hover:bg-blue-500/10'
                             : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                         }`}
                         title={isUnread ? 'Marcar como leída' : 'Marcar como no leída'}
@@ -346,7 +346,7 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
                         id={`btn-notif-paid-${notif.id}`}
                         type="button"
                         onClick={() => onMarkMemberPaid(notif.subscriptionId, notif.memberId)}
-                        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-[11px] font-bold shadow-xs transition-colors cursor-pointer"
+                        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-[11px] font-bold shadow-xs transition-colors cursor-pointer"
                         title="Marcar cuota como pagada"
                       >
                         <CheckCircle2 className="w-3.5 h-3.5" />
@@ -358,7 +358,7 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
                         id={`btn-notif-view-${notif.id}`}
                         type="button"
                         onClick={() => handleGoToMember(notif)}
-                        className="p-1.5 rounded-xl bg-muted hover:bg-muted/80 text-foreground hover:text-indigo-500 border border-border transition-colors cursor-pointer"
+                        className="p-1.5 rounded-xl bg-muted hover:bg-muted/80 text-foreground hover:text-blue-500 border border-border transition-colors cursor-pointer"
                         title="Ver ficha del miembro"
                       >
                         <ExternalLink className="w-3.5 h-3.5" />
@@ -374,7 +374,7 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
         {/* Modal Footer Summary */}
         <div className="px-6 py-3.5 border-t border-border bg-muted/20 flex items-center justify-between text-xs text-muted-foreground">
           <div className="flex items-center gap-1.5 font-medium">
-            <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
+            <Sparkles className="w-3.5 h-3.5 text-blue-500" />
             <span>Las alarmas se calculan en base a la fecha de próximo cobro y antelación configurada.</span>
           </div>
           <button

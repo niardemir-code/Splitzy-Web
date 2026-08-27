@@ -116,6 +116,7 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
   }, []);
 
   // Form states aligned with Android schema
+  const [newSubId, setNewSubId] = useState<string>('');
   const [platformName, setPlatformName] = useState('');
   const [category, setCategory] = useState<string>('Streaming');
   const [mainUserName, setMainUserName] = useState('');
@@ -148,6 +149,7 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
   // Sync state on open/edit
   useEffect(() => {
     if (activeSubToEdit) {
+      setNewSubId('');
       setPlatformName(activeSubToEdit.platformName || activeSubToEdit.name || '');
       setCategory(activeSubToEdit.category || 'Streaming');
       setMainUserName(activeSubToEdit.mainUserName || '');
@@ -191,6 +193,10 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
       setCustomImageBase64(activeSubToEdit.customImageBase64 || '');
       setHasManuallyPickedIcon(true);
     } else {
+      // Generate a stable unique ID for this new subscription session
+      const generatedNewId = String(Date.now() * 1000 + Math.floor(Math.random() * 1000));
+      setNewSubId(generatedNewId);
+
       // Default reset
       setPlatformName('');
       setCategory('Streaming');
@@ -411,6 +417,8 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
 
     if (activeSubToEdit?.id) {
       payload.id = activeSubToEdit.id;
+    } else if (newSubId) {
+      payload.id = newSubId;
     }
 
     onSave(payload);
@@ -1261,7 +1269,7 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
         currentCustomImageUri={customImageUri}
         currentCustomImageBase64={customImageBase64}
         platformName={platformName}
-        subscriptionId={activeSubToEdit?.id}
+        subscriptionId={activeSubToEdit?.id || newSubId}
       />
     </>
   );

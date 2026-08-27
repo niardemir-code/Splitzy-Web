@@ -203,6 +203,11 @@ function SplitzyApp() {
       billingCycle: subData.billingPeriod === 'YEARLY' ? 'yearly' : 'monthly',
       billingDay: subData.billingDay || 1,
       billingMonth: subData.billingMonth || 1,
+      renewalDate: subData.renewalDate || '',
+      enableAlarm: Boolean(subData.enableAlarm),
+      alarmValue: typeof subData.alarmValue === 'number' ? subData.alarmValue : 3,
+      alarmUnit: subData.alarmUnit || 'days',
+      alarmDaysBefore: subData.alarmDaysBefore,
       platformPricing: subData.platformPricing || '',
       notes: subData.notes || '',
       members: subData.members || [],
@@ -210,6 +215,8 @@ function SplitzyApp() {
       color: subData.color || '#1285FA',
       iconType: subData.iconType || 'PRESET',
       iconKey: subData.iconKey || platformName,
+      customImageUri: subData.customImageUri || '',
+      customImageBase64: subData.customImageBase64 || '',
     };
 
     if (user) {
@@ -227,17 +234,17 @@ function SplitzyApp() {
           console.error('Error updating subscription in Firestore:', err);
         });
       } else {
-        // Create new subscription with unique numeric ID
-        const newNumericId = Date.now();
+        // Create new subscription with pre-generated numeric ID matching Storage path
+        const newNumericId = subData.id ? String(subData.id) : String(Date.now() * 1000 + Math.floor(Math.random() * 1000));
         const optimisticSub: Subscription = {
           ...completeData,
-          id: String(newNumericId),
+          id: newNumericId,
           userId: user.uid,
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
         };
         setSubscriptions((prev) => [optimisticSub, ...prev]);
-        setSelectedSubscriptionId(String(newNumericId));
+        setSelectedSubscriptionId(newNumericId);
 
         createSubscription(user.uid, completeData, newNumericId).catch((err) => {
           console.error('Error creating subscription in Firestore:', err);
@@ -254,16 +261,16 @@ function SplitzyApp() {
           )
         );
       } else {
-        const newNumericId = Date.now();
+        const newNumericId = subData.id ? String(subData.id) : String(Date.now() * 1000 + Math.floor(Math.random() * 1000));
         const newSub: Subscription = {
           ...completeData,
-          id: String(newNumericId),
+          id: newNumericId,
           userId: 'guest',
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
         };
         setLocalGuestSubscriptions((prev) => [newSub, ...prev]);
-        setSelectedSubscriptionId(String(newNumericId));
+        setSelectedSubscriptionId(newNumericId);
       }
     }
   };

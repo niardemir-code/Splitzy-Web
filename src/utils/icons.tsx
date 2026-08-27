@@ -343,7 +343,17 @@ export const PlatformIconBadge: React.FC<PlatformIconBadgeProps> = ({
           referrerPolicy="no-referrer"
           className="w-full h-full object-cover"
           onError={(e) => {
-            (e.currentTarget as HTMLElement).style.display = 'none';
+            const img = e.currentTarget as HTMLImageElement;
+            const retries = parseInt(img.dataset.retries || '0', 10);
+            if (retries < 3) {
+              img.dataset.retries = String(retries + 1);
+              // Reintenta tras un breve retardo (la URL de Storage puede tardar en propagarse)
+              setTimeout(() => {
+                img.src = imageSource + (imageSource.includes('?') ? '&' : '?') + 'retry=' + (retries + 1);
+              }, 800 * (retries + 1));
+            } else {
+              img.style.display = 'none';
+            }
           }}
         />
         <span className="absolute text-xs font-black uppercase text-muted-foreground pointer-events-none -z-10">

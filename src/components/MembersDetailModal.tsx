@@ -75,7 +75,7 @@ export const MembersDetailModal: React.FC<MembersDetailModalProps> = ({
       pricePerUser: cp.pricePerUser,
       currency: cp.currency || subscription?.currency || 'EUR',
       period: cp.period,
-      colorHex: matched?.colorHex || '#6366F1',
+      colorHex: matched?.colorHex || '#1285FA',
     };
   });
 
@@ -431,7 +431,7 @@ export const MembersDetailModal: React.FC<MembersDetailModalProps> = ({
   ) || platforms.find(
     (p) => p.name.toLowerCase() === (platform || '').toLowerCase()
   );
-  const selectedPlatformColor = currentSelectedPlatform?.colorHex || '#6366F1';
+  const selectedPlatformColor = currentSelectedPlatform?.colorHex || '#1285FA';
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto bg-black/80 backdrop-blur-md">
@@ -448,7 +448,7 @@ export const MembersDetailModal: React.FC<MembersDetailModalProps> = ({
               iconKey={subscription.iconKey}
               customImageUri={subscription.customImageUri}
               customImageBase64={subscription.customImageBase64}
-              iconColorHex={subscription.iconColorHex || subscription.color || '#6366F1'}
+              iconColorHex={subscription.iconColorHex || subscription.color || '#1285FA'}
               sizeClass="w-11 h-11"
               iconSizeClass="w-5 h-5"
               roundedClass="rounded-2xl"
@@ -565,7 +565,7 @@ export const MembersDetailModal: React.FC<MembersDetailModalProps> = ({
                             <div className="flex items-center gap-2.5 min-w-0">
                               <span
                                 className="w-2.5 h-2.5 rounded-full shrink-0 shadow-xs ring-1 ring-black/10 dark:ring-white/10"
-                                style={{ backgroundColor: p.colorHex || '#6366F1' }}
+                                style={{ backgroundColor: p.colorHex || '#1285FA' }}
                               />
                               <span className="truncate">{p.name}</span>
                             </div>

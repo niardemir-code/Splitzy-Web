@@ -48,7 +48,7 @@ export const IconSelectorModal: React.FC<IconSelectorModalProps> = ({
   onSelect,
   currentIconType = 'PRESET',
   currentIconKey = 'Netflix',
-  currentIconColorHex = '#6366F1',
+  currentIconColorHex = '#1285FA',
   currentCustomImageUri = '',
   currentCustomImageBase64 = '',
   platformName = 'Suscripción',
@@ -62,7 +62,7 @@ export const IconSelectorModal: React.FC<IconSelectorModalProps> = ({
   );
   
   const [selectedKey, setSelectedKey] = useState<string>(currentIconKey || 'Netflix');
-  const [selectedColor, setSelectedColor] = useState<string>(currentIconColorHex || '#6366F1');
+  const [selectedColor, setSelectedColor] = useState<string>(currentIconColorHex || '#1285FA');
   const [customImageUri, setCustomImageUri] = useState<string>(currentCustomImageUri || '');
   const [customImageBase64, setCustomImageBase64] = useState<string>(currentCustomImageBase64 || '');
   
@@ -76,7 +76,7 @@ export const IconSelectorModal: React.FC<IconSelectorModalProps> = ({
     if (isOpen) {
       setActiveTab(currentIconType === 'CUSTOM_IMAGE' ? 'CUSTOM_IMAGE' : 'PRESET');
       setSelectedKey(currentIconKey || platformName || 'Netflix');
-      setSelectedColor(currentIconColorHex || '#6366F1');
+      setSelectedColor(currentIconColorHex || '#1285FA');
       setCustomImageUri(currentCustomImageUri || '');
       setCustomImageBase64(currentCustomImageBase64 || '');
       setUploadError(null);
@@ -322,7 +322,7 @@ export const IconSelectorModal: React.FC<IconSelectorModalProps> = ({
                   <div className="flex items-center gap-2 ml-1 p-1 rounded-xl bg-muted/60 border border-border">
                     <input
                       type="color"
-                      value={selectedColor.startsWith('#') ? selectedColor : '#6366F1'}
+                      value={selectedColor.startsWith('#') ? selectedColor : '#1285FA'}
                       onChange={(e) => setSelectedColor(e.target.value)}
                       className="w-7 h-7 rounded-lg border-0 cursor-pointer bg-transparent"
                       title="Seleccionar color personalizado"
@@ -331,7 +331,7 @@ export const IconSelectorModal: React.FC<IconSelectorModalProps> = ({
                       type="text"
                       value={selectedColor}
                       onChange={(e) => setSelectedColor(e.target.value)}
-                      placeholder="#6366F1"
+                      placeholder="#1285FA"
                       className="w-20 px-1.5 py-1 text-xs font-mono font-bold bg-transparent text-foreground focus:outline-none"
                     />
                   </div>

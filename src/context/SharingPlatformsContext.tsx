@@ -52,7 +52,7 @@ export const SharingPlatformsProvider: React.FC<{ children: React.ReactNode }> =
           list.push({
             id: docSnap.id,
             name: data.name || '',
-            colorHex: data.colorHex || '#6366F1',
+            colorHex: data.colorHex || '#1285FA',
             displayOrder: data.displayOrder ?? 0,
           });
         });

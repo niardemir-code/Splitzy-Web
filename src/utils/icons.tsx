@@ -100,7 +100,7 @@ export const PRESET_SERVICES: ServicePreset[] = [
   { key: 'NordVPN', name: 'NordVPN', category: 'Seguridad', defaultColorHex: '#4687FF', shortLabel: 'VPN', lucideIcon: ShieldCheck },
   { key: 'Strava', name: 'Strava Summit', category: 'Salud', defaultColorHex: '#FC4C02', shortLabel: 'STR', lucideIcon: Trophy },
   { key: 'Gym', name: 'Gimnasio / Fitness', category: 'Salud', defaultColorHex: '#10B981', shortLabel: 'GYM', lucideIcon: Dumbbell },
-  { key: 'Custom', name: 'Personalizado', category: 'General', defaultColorHex: '#6366F1', shortLabel: '★', lucideIcon: Layers },
+  { key: 'Custom', name: 'Personalizado', category: 'General', defaultColorHex: '#1285FA', shortLabel: '★', lucideIcon: Layers },
 ];
 
 export const AVAILABLE_ICON_COLORS: ColorOption[] = [
@@ -317,7 +317,7 @@ export const PlatformIconBadge: React.FC<PlatformIconBadgeProps> = ({
   iconKey = 'Netflix',
   customImageUri,
   customImageBase64,
-  iconColorHex = '#6366F1',
+  iconColorHex = '#1285FA',
   sizeClass = 'w-12 h-12',
   iconSizeClass = 'w-6 h-6',
   roundedClass = 'rounded-2xl',

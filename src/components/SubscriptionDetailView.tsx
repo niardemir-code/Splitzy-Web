@@ -151,14 +151,14 @@ export const SubscriptionDetailView: React.FC<SubscriptionDetailViewProps> = ({
     : `${subscription.billingDay || 1} de ${monthName}`;
 
   const displayName = subscription.platformName || subscription.name || 'Suscripción';
-  const iconColor = subscription.iconColorHex || subscription.color || '#6366F1';
+  const iconColor = subscription.iconColorHex || subscription.color || '#1285FA';
 
   // Configured sharing platforms for this subscription
   const configuredPlatforms = parsePlatformPricing(subscription.platformPricing);
 
   const getPlatformColor = (name: string): string => {
     const found = platforms.find((p) => p.name.toLowerCase() === name.toLowerCase());
-    return found?.colorHex || '#6366F1';
+    return found?.colorHex || '#1285FA';
   };
 
   return (

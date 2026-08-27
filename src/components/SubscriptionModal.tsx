@@ -139,7 +139,7 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
   // Icon & Customization states
   const [iconType, setIconType] = useState<'PRESET' | 'CUSTOM_IMAGE'>('PRESET');
   const [iconKey, setIconKey] = useState<string>('Netflix');
-  const [iconColorHex, setIconColorHex] = useState<string>('#6366F1');
+  const [iconColorHex, setIconColorHex] = useState<string>('#1285FA');
   const [customImageUri, setCustomImageUri] = useState<string>('');
   const [customImageBase64, setCustomImageBase64] = useState<string>('');
   const [showIconSelector, setShowIconSelector] = useState<boolean>(false);
@@ -186,7 +186,7 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
       const subIconType = activeSubToEdit.iconType === 'CUSTOM_IMAGE' ? 'CUSTOM_IMAGE' : 'PRESET';
       setIconType(subIconType);
       setIconKey(activeSubToEdit.iconKey || activeSubToEdit.platformName || 'Netflix');
-      setIconColorHex(activeSubToEdit.iconColorHex || activeSubToEdit.color || '#6366F1');
+      setIconColorHex(activeSubToEdit.iconColorHex || activeSubToEdit.color || '#1285FA');
       setCustomImageUri(activeSubToEdit.customImageUri || '');
       setCustomImageBase64(activeSubToEdit.customImageBase64 || '');
       setHasManuallyPickedIcon(true);
@@ -217,7 +217,7 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
       // Default icons reset
       setIconType('PRESET');
       setIconKey('Netflix');
-      setIconColorHex('#6366F1');
+      setIconColorHex('#1285FA');
       setCustomImageUri('');
       setCustomImageBase64('');
       setHasManuallyPickedIcon(false);
@@ -401,8 +401,8 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
       platformPricing: serializedPricing,
       members: updatedMembers,
       notes: notes.trim(),
-      iconColorHex: iconColorHex || '#6366F1',
-      color: iconColorHex || '#6366F1',
+      iconColorHex: iconColorHex || '#1285FA',
+      color: iconColorHex || '#1285FA',
       iconType: iconType || 'PRESET',
       iconKey: iconKey || platformName.trim() || 'Netflix',
       customImageUri: iconType === 'CUSTOM_IMAGE' ? (customImageUri || '') : '',
@@ -899,7 +899,7 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
                     const platformObj = platforms.find(
                       (p) => p.name.toLowerCase() === item.platformName.toLowerCase()
                     );
-                    const platformColor = platformObj?.colorHex || '#6366F1';
+                    const platformColor = platformObj?.colorHex || '#1285FA';
                     const currSymbol = getCurrencySymbol(item.currency);
                     const periodShort = formatPeriodShort(item.period || billingPeriod);
 
@@ -1072,7 +1072,7 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
                   const currentPlat = platforms.find(
                     (p) => p.name.toLowerCase() === (platformModalState.platformName || '').toLowerCase()
                   ) || platforms[0];
-                  const currentPlatColor = currentPlat?.colorHex || '#6366F1';
+                  const currentPlatColor = currentPlat?.colorHex || '#1285FA';
                   return (
                     <>
                       <button
@@ -1115,7 +1115,7 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
                                 <div className="flex items-center gap-2.5 min-w-0">
                                   <span
                                     className="w-2.5 h-2.5 rounded-full shrink-0 shadow-xs ring-1 ring-white/10"
-                                    style={{ backgroundColor: p.colorHex || '#6366F1' }}
+                                    style={{ backgroundColor: p.colorHex || '#1285FA' }}
                                   />
                                   <span className="truncate">{p.name}</span>
                                 </div>

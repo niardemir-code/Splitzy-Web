@@ -71,13 +71,13 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   // Add platform state
   const [showAddForm, setShowAddForm] = useState(false);
   const [newPlatformName, setNewPlatformName] = useState('');
-  const [newPlatformColor, setNewPlatformColor] = useState('#6366F1');
+  const [newPlatformColor, setNewPlatformColor] = useState('#1285FA');
   const [isSubmittingAdd, setIsSubmittingAdd] = useState(false);
 
   // Edit platform state
   const [editingPlatformId, setEditingPlatformId] = useState<string | number | null>(null);
   const [editPlatformName, setEditPlatformName] = useState('');
-  const [editPlatformColor, setEditPlatformColor] = useState('#6366F1');
+  const [editPlatformColor, setEditPlatformColor] = useState('#1285FA');
   const [isSubmittingEdit, setIsSubmittingEdit] = useState(false);
 
   // Backup / JSON state
@@ -125,7 +125,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   const handleStartEdit = (platform: SharingPlatformEntity) => {
     setEditingPlatformId(platform.id);
     setEditPlatformName(platform.name);
-    setEditPlatformColor(platform.colorHex || '#6366F1');
+    setEditPlatformColor(platform.colorHex || '#1285FA');
   };
 
   const handleSaveEdit = async () => {
@@ -496,7 +496,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                       <div className="flex items-center gap-3 min-w-0">
                         <span
                           className="w-4 h-4 rounded-full shrink-0 shadow-sm ring-2 ring-black/10 dark:ring-white/10"
-                          style={{ backgroundColor: platform.colorHex || '#6366F1' }}
+                          style={{ backgroundColor: platform.colorHex || '#1285FA' }}
                         />
                         <span className="text-xs font-bold text-foreground truncate">
                           {platform.name}

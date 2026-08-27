@@ -485,7 +485,7 @@ export interface Subscription {
   notes?: string;
   members: Member[];
   color?: string; // Hex color
-  iconColorHex: string; // Android exact (#6366F1)
+  iconColorHex: string; // Android exact (#1285FA)
   iconType: 'PRESET' | 'VECTOR' | 'CUSTOM_IMAGE' | string;
   iconKey: string; // Key from icon library or preset
   customImageUri?: string;

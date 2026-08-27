@@ -40,7 +40,7 @@ export const SplitzyLogo: React.FC<SplitzyLogoProps> = ({
         />
       ) : (
         /* Fallback icon if logo.png is not loaded yet */
-        <div className="w-full h-full rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-extrabold text-lg shadow-md">
+        <div className="w-full h-full rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-extrabold text-lg shadow-md">
           S
         </div>
       )}

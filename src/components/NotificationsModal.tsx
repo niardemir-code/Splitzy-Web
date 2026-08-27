@@ -227,7 +227,7 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
                       {/* Subscription Icon / Badge */}
                       <div 
                         className="w-10 h-10 rounded-xl flex items-center justify-center font-black text-sm text-white shrink-0 shadow-xs"
-                        style={{ backgroundColor: notif.subscriptionColor || '#6366F1' }}
+                        style={{ backgroundColor: notif.subscriptionColor || '#1285FA' }}
                       >
                         {notif.subscriptionName.charAt(0).toUpperCase()}
                       </div>

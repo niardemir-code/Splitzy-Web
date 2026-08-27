@@ -85,7 +85,7 @@ export function generateNotificationsFromSubscriptions(
 
   subscriptions.forEach((sub) => {
     const subName = sub.platformName || sub.name || 'Suscripción';
-    const subColor = sub.iconColorHex || sub.color || '#6366F1';
+    const subColor = sub.iconColorHex || sub.color || '#1285FA';
     const members = sub.members || [];
 
     members.forEach((m) => {

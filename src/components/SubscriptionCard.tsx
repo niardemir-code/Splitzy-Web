@@ -111,7 +111,7 @@ export const SubscriptionCard: React.FC<SubscriptionCardProps> = ({
   };
 
   const displayName = subscription.platformName || subscription.name || 'Suscripción';
-  const iconColor = subscription.iconColorHex || subscription.color || '#6366F1';
+  const iconColor = subscription.iconColorHex || subscription.color || '#1285FA';
 
   return (
     <div

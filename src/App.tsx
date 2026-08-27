@@ -206,8 +206,8 @@ function SplitzyApp() {
       platformPricing: subData.platformPricing || '',
       notes: subData.notes || '',
       members: subData.members || [],
-      iconColorHex: subData.iconColorHex || '#6366F1',
-      color: subData.color || '#6366F1',
+      iconColorHex: subData.iconColorHex || '#1285FA',
+      color: subData.color || '#1285FA',
       iconType: subData.iconType || 'PRESET',
       iconKey: subData.iconKey || platformName,
     };

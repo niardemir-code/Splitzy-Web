@@ -31,10 +31,10 @@ export const ManageSharingPlatformsModal: React.FC<ManageSharingPlatformsModalPr
     useSharingPlatforms();
 
   const [newName, setNewName] = useState('');
-  const [newColor, setNewColor] = useState('#6366F1');
+  const [newColor, setNewColor] = useState('#1285FA');
   const [editingId, setEditingId] = useState<string | number | null>(null);
   const [editName, setEditName] = useState('');
-  const [editColor, setEditColor] = useState('#6366F1');
+  const [editColor, setEditColor] = useState('#1285FA');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (!isOpen) return null;
@@ -60,7 +60,7 @@ export const ManageSharingPlatformsModal: React.FC<ManageSharingPlatformsModalPr
   const handleStartEdit = (platform: SharingPlatformEntity) => {
     setEditingId(platform.id);
     setEditName(platform.name);
-    setEditColor(platform.colorHex || '#6366F1');
+    setEditColor(platform.colorHex || '#1285FA');
   };
 
   const handleSaveEdit = async () => {
@@ -261,7 +261,7 @@ export const ManageSharingPlatformsModal: React.FC<ManageSharingPlatformsModalPr
                   <div className="flex items-center gap-2.5 min-w-0">
                     <span
                       className="w-3.5 h-3.5 rounded-full shrink-0 shadow-xs ring-1 ring-white/10"
-                      style={{ backgroundColor: platform.colorHex || '#6366F1' }}
+                      style={{ backgroundColor: platform.colorHex || '#1285FA' }}
                     />
                     <span className="text-xs font-bold text-white truncate">
                       {platform.name}

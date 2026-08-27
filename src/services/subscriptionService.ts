@@ -356,7 +356,7 @@ export function normalizeSubscriptionDoc(id: string, data: any, defaultUserId: s
   const rawContribution = data.defaultContributionPerUser ?? data.contributionAmount ?? (rawMembers.length > 0 ? cost / rawMembers.length : 0);
   const defaultContributionPerUser = typeof rawContribution === 'number' ? rawContribution : parseFloat(String(rawContribution)) || 0;
 
-  const iconColorHex = String(data.iconColorHex || data.color || '#6366F1');
+  const iconColorHex = String(data.iconColorHex || data.color || '#1285FA');
   const iconKey = String(data.iconKey || data.icon || platformName || 'Netflix');
   const iconType = String(data.iconType || 'PRESET');
 
@@ -757,7 +757,7 @@ export function toAndroidSubscriptionPayload(sub: Partial<Subscription>, userId:
     payload.icon_key = iconKey;
   }
   if (sub.iconColorHex !== undefined || sub.color !== undefined) {
-    const iconColorHex = sub.iconColorHex || sub.color || '#6366F1';
+    const iconColorHex = sub.iconColorHex || sub.color || '#1285FA';
     payload.iconColorHex = iconColorHex;
     payload.color = iconColorHex;
     payload.icon_color_hex = iconColorHex;
@@ -1108,7 +1108,7 @@ export function generateAndroidBackupJson(subscriptions: Subscription[]): string
       iconKey: sub.iconKey || sub.icon || sub.name || 'Netflix',
       customImageUri: sub.customImageUri || '',
       customImageBase64: sub.customImageBase64 || '',
-      iconColorHex: sub.iconColorHex || sub.color || '#6366F1',
+      iconColorHex: sub.iconColorHex || sub.color || '#1285FA',
       createdAt: now,
     });
 

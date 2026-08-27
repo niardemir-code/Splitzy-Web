@@ -195,7 +195,7 @@ export const SubscriptionMasterList: React.FC<SubscriptionMasterListProps> = ({
           subscriptions.map((sub) => {
             const isSelected = sub.id === selectedSubscriptionId;
             const displayName = sub.platformName || sub.name || 'Suscripción';
-            const iconColor = sub.iconColorHex || sub.color || '#6366F1';
+            const iconColor = sub.iconColorHex || sub.color || '#1285FA';
             const membersCount = (sub.members || []).length;
 
             return (

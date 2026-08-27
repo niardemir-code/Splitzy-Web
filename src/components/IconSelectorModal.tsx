@@ -114,23 +114,24 @@ export const IconSelectorModal: React.FC<IconSelectorModalProps> = ({
     setUploadError(null);
 
     try {
-      // 1. Compress image to max 512x512 px (JPEG / PNG Data URI and Blob)
-      const compressed = await compressImageToMax512(file, 512, 0.88);
+      // 1. Compress image to max 256x256 px (JPEG Data URI and Blob)
+      const compressed = await compressImageToMax512(file, 256, 0.7);
       setCustomImageBase64(compressed.dataUri);
 
       // 2. Upload compressed image to Firebase Storage if user is signed in
       if (user?.uid) {
         const subId = subscriptionId || `sub_${Date.now()}`;
-        const fileExt = compressed.mimeType === 'image/png' ? 'png' : 'jpg';
-        const storagePath = `users/${user.uid}/subscriptions/${subId}/custom_logo.${fileExt}`;
+        const storagePath = `users/${user.uid}/subscriptions/${subId}/custom_logo.jpg`;
         const storageRef = ref(storage, storagePath);
 
         await uploadBytes(storageRef, compressed.blob, {
-          contentType: compressed.mimeType,
+          contentType: 'image/jpeg',
         });
 
         const downloadUrl = await getDownloadURL(storageRef);
         setCustomImageUri(downloadUrl);
+        // Clear base64 once storage upload succeeds, so we don't save heavy base64 to Firestore
+        setCustomImageBase64('');
       } else {
         // If offline / not signed in, keep local preview as uri
         setCustomImageUri(compressed.dataUri);
@@ -160,7 +161,7 @@ export const IconSelectorModal: React.FC<IconSelectorModalProps> = ({
         iconKey: selectedKey || platformName || 'Custom',
         iconColorHex: selectedColor,
         customImageUri: customImageUri || '',
-        customImageBase64: customImageBase64 || '',
+        customImageBase64: customImageUri ? '' : (customImageBase64 || ''),
       });
     } else {
       onSelect({

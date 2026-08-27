@@ -1,6 +1,6 @@
 /**
  * Utility to compress and resize subscription logos/images for Android & Web compatibility.
- * Limits dimension to max 512x512 px and encodes to clean Base64 / Blob.
+ * Limits dimension to max 256x256 px and encodes to clean image/jpeg Blob & Data URI.
  */
 
 export interface CompressedImageResult {
@@ -8,13 +8,13 @@ export interface CompressedImageResult {
   dataUri: string;
   width: number;
   height: number;
-  mimeType: 'image/jpeg' | 'image/png';
+  mimeType: 'image/jpeg';
 }
 
 export async function compressImageToMax512(
   file: File,
-  maxDimension: number = 512,
-  quality: number = 0.88
+  maxDimension: number = 256,
+  quality: number = 0.7
 ): Promise<CompressedImageResult> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -25,7 +25,7 @@ export async function compressImageToMax512(
       img.onload = () => {
         let { width, height } = img;
 
-        // Calculate proportional scale if dimensions exceed maxDimension (512px)
+        // Calculate proportional scale if dimensions exceed maxDimension (256px)
         if (width > maxDimension || height > maxDimension) {
           if (width > height) {
             height = Math.round((height * maxDimension) / width);
@@ -48,15 +48,10 @@ export async function compressImageToMax512(
         ctx.imageSmoothingEnabled = true;
         ctx.imageSmoothingQuality = 'high';
 
-        // Check if image is PNG and keep PNG transparency, otherwise JPEG
-        const isPng = file.type === 'image/png';
-        const mimeType: 'image/jpeg' | 'image/png' = isPng ? 'image/png' : 'image/jpeg';
-
-        if (mimeType === 'image/jpeg') {
-          // Fill background white for JPEG to prevent black transparent areas
-          ctx.fillStyle = '#FFFFFF';
-          ctx.fillRect(0, 0, width, height);
-        }
+        // Always convert to JPEG with white background for minimal file size
+        const mimeType = 'image/jpeg' as const;
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(0, 0, width, height);
 
         ctx.drawImage(img, 0, 0, width, height);
 

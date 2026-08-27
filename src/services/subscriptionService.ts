@@ -762,13 +762,16 @@ export function toAndroidSubscriptionPayload(sub: Partial<Subscription>, userId:
     payload.color = iconColorHex;
     payload.icon_color_hex = iconColorHex;
   }
+  const customImgUri = sub.customImageUri || '';
   if (sub.customImageUri !== undefined) {
-    payload.customImageUri = sub.customImageUri || '';
-    payload.custom_image_uri = sub.customImageUri || '';
+    payload.customImageUri = customImgUri;
+    payload.custom_image_uri = customImgUri;
   }
   if (sub.customImageBase64 !== undefined) {
-    payload.customImageBase64 = sub.customImageBase64 || '';
-    payload.custom_image_base64 = sub.customImageBase64 || '';
+    // When a valid customImageUri exists (Storage URL), do not write base64 to Firestore
+    const base64Value = customImgUri ? '' : (sub.customImageBase64 || '');
+    payload.customImageBase64 = base64Value;
+    payload.custom_image_base64 = base64Value;
   }
   if (sub.createdAt !== undefined) {
     payload.createdAt = typeof sub.createdAt === 'number' ? sub.createdAt : new Date(sub.createdAt).getTime();

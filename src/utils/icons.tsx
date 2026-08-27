@@ -323,11 +323,13 @@ export const PlatformIconBadge: React.FC<PlatformIconBadgeProps> = ({
   roundedClass = 'rounded-2xl',
   className = '',
 }) => {
-  const imageSource = customImageBase64 
-    ? (customImageBase64.startsWith('data:') || customImageBase64.startsWith('blob:') || customImageBase64.startsWith('http') 
-        ? customImageBase64 
-        : `data:image/jpeg;base64,${customImageBase64}`) 
-    : customImageUri;
+  const imageSource = (customImageUri && customImageUri.trim() !== '')
+    ? customImageUri
+    : (customImageBase64
+        ? (customImageBase64.startsWith('data:') || customImageBase64.startsWith('blob:') || customImageBase64.startsWith('http')
+            ? customImageBase64
+            : `data:image/jpeg;base64,${customImageBase64}`)
+        : undefined);
 
   if (iconType === 'CUSTOM_IMAGE' && imageSource && imageSource.trim() !== '') {
     return (

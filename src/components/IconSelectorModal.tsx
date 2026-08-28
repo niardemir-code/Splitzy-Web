@@ -90,10 +90,14 @@ export const IconSelectorModal: React.FC<IconSelectorModalProps> = ({
   const handleSelectPreset = (preset: ServicePreset) => {
     setSelectedKey(preset.key);
     setSelectedColor(preset.defaultColorHex);
+    setCustomImageUri('');
+    setCustomImageBase64('');
   };
 
   const handleSelectLucideIcon = (iconItem: IconOption) => {
     setSelectedKey(iconItem.key);
+    setCustomImageUri('');
+    setCustomImageBase64('');
   };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -157,10 +161,11 @@ export const IconSelectorModal: React.FC<IconSelectorModalProps> = ({
   const handleSave = () => {
     if (isUploading) return;
 
-    if (activeTab === 'CUSTOM_IMAGE' && (customImageUri || customImageBase64)) {
+    const hasCustomImage = Boolean(customImageUri?.trim() || customImageBase64?.trim());
+    if (hasCustomImage) {
       // In online/authenticated mode, customImageUri is the download URL from Firebase Storage.
       // If offline/unauthenticated, customImageUri contains the local dataUri.
-      const finalUri = customImageUri || customImageBase64 || '';
+      const finalUri = customImageUri?.trim() || customImageBase64?.trim() || '';
       onSelect({
         iconType: 'CUSTOM_IMAGE',
         iconKey: selectedKey || platformName || 'Custom',
@@ -232,7 +237,7 @@ export const IconSelectorModal: React.FC<IconSelectorModalProps> = ({
           <div className="flex items-center gap-3.5 min-w-0">
             <PlatformIconBadge
               platformName={platformName || 'Suscripción'}
-              iconType={activeTab}
+              iconType={customImageUri || customImageBase64 ? 'CUSTOM_IMAGE' : 'PRESET'}
               iconKey={selectedKey}
               customImageUri={customImageUri}
               customImageBase64={customImageBase64}
@@ -247,7 +252,7 @@ export const IconSelectorModal: React.FC<IconSelectorModalProps> = ({
               </p>
               <div className="flex items-center gap-2 mt-1">
                 <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-md bg-muted text-muted-foreground border border-border">
-                  {activeTab === 'CUSTOM_IMAGE' ? (
+                  {customImageUri || customImageBase64 ? (
                     <>
                       <ImageIcon className="w-3 h-3 text-blue-500" />
                       Imagen personalizada
@@ -296,54 +301,54 @@ export const IconSelectorModal: React.FC<IconSelectorModalProps> = ({
 
         {/* Modal Body */}
         <div className="flex-1 overflow-y-auto p-5 space-y-6">
+          {/* Common Color Selector (Always Visible) */}
+          <div className="p-4 rounded-2xl bg-muted/40 border border-border">
+            <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2.5">
+              Color del icono / fondo
+            </label>
+            <div className="flex flex-wrap items-center gap-2">
+              {AVAILABLE_ICON_COLORS.map((c) => {
+                const isSelected = selectedColor.toLowerCase() === c.hex.toLowerCase();
+                return (
+                  <button
+                    key={c.hex}
+                    type="button"
+                    onClick={() => setSelectedColor(c.hex)}
+                    title={c.label}
+                    className={`w-8 h-8 rounded-full transition-transform flex items-center justify-center cursor-pointer border ${
+                      isSelected 
+                        ? 'scale-110 ring-2 ring-blue-500 ring-offset-2 ring-offset-card border-white' 
+                        : 'hover:scale-105 border-white/10'
+                    }`}
+                    style={{ backgroundColor: c.hex }}
+                  >
+                    {isSelected && <Check className="w-4 h-4 text-white drop-shadow-md stroke-[3]" />}
+                  </button>
+                );
+              })}
+              
+              {/* Custom Hex Picker */}
+              <div className="flex items-center gap-2 ml-1 p-1 rounded-xl bg-muted/60 border border-border">
+                <input
+                  type="color"
+                  value={selectedColor.startsWith('#') ? selectedColor : '#1285FA'}
+                  onChange={(e) => setSelectedColor(e.target.value)}
+                  className="w-7 h-7 rounded-lg border-0 cursor-pointer bg-transparent"
+                  title="Seleccionar color personalizado"
+                />
+                <input
+                  type="text"
+                  value={selectedColor}
+                  onChange={(e) => setSelectedColor(e.target.value)}
+                  placeholder="#1285FA"
+                  className="w-20 px-1.5 py-1 text-xs font-mono font-bold bg-transparent text-foreground focus:outline-none"
+                />
+              </div>
+            </div>
+          </div>
+
           {activeTab === 'PRESET' ? (
             <>
-              {/* Color Selector */}
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2.5">
-                  Color del icono / fondo
-                </label>
-                <div className="flex flex-wrap items-center gap-2">
-                  {AVAILABLE_ICON_COLORS.map((c) => {
-                    const isSelected = selectedColor.toLowerCase() === c.hex.toLowerCase();
-                    return (
-                      <button
-                        key={c.hex}
-                        type="button"
-                        onClick={() => setSelectedColor(c.hex)}
-                        title={c.label}
-                        className={`w-8 h-8 rounded-full transition-transform flex items-center justify-center cursor-pointer border ${
-                          isSelected 
-                            ? 'scale-110 ring-2 ring-blue-500 ring-offset-2 ring-offset-card border-white' 
-                            : 'hover:scale-105 border-white/10'
-                        }`}
-                        style={{ backgroundColor: c.hex }}
-                      >
-                        {isSelected && <Check className="w-4 h-4 text-white drop-shadow-md stroke-[3]" />}
-                      </button>
-                    );
-                  })}
-                  
-                  {/* Custom Hex Picker */}
-                  <div className="flex items-center gap-2 ml-1 p-1 rounded-xl bg-muted/60 border border-border">
-                    <input
-                      type="color"
-                      value={selectedColor.startsWith('#') ? selectedColor : '#1285FA'}
-                      onChange={(e) => setSelectedColor(e.target.value)}
-                      className="w-7 h-7 rounded-lg border-0 cursor-pointer bg-transparent"
-                      title="Seleccionar color personalizado"
-                    />
-                    <input
-                      type="text"
-                      value={selectedColor}
-                      onChange={(e) => setSelectedColor(e.target.value)}
-                      placeholder="#1285FA"
-                      className="w-20 px-1.5 py-1 text-xs font-mono font-bold bg-transparent text-foreground focus:outline-none"
-                    />
-                  </div>
-                </div>
-              </div>
-
               {/* Search & Category Filter */}
               <div className="space-y-3">
                 <div className="relative">
@@ -592,7 +597,7 @@ export const IconSelectorModal: React.FC<IconSelectorModalProps> = ({
           <button
             type="button"
             onClick={handleSave}
-            disabled={isUploading || (activeTab === 'CUSTOM_IMAGE' && !customImageUri && !customImageBase64)}
+            disabled={isUploading}
             className="px-5 py-2.5 rounded-2xl text-xs font-extrabold bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white shadow-lg shadow-blue-600/20 transition-all cursor-pointer flex items-center gap-2"
           >
             {isUploading ? (

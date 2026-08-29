@@ -10,7 +10,8 @@ import {
   where,
   writeBatch
 } from 'firebase/firestore';
-import { db, handleFirestoreError, OperationType } from '../lib/firebase';
+import { ref as storageRef, deleteObject } from 'firebase/storage';
+import { db, storage, handleFirestoreError, OperationType } from '../lib/firebase';
 import { 
   Subscription, 
   PaymentStatus, 
@@ -913,6 +914,15 @@ export async function deleteSubscription(
 
     // 2. Borrar el documento principal de la suscripción
     await deleteDoc(doc(db, 'users', userId, 'subscriptions', docId));
+
+    // 3. Borrar el logo personalizado de Storage si existe (ignorar si no hay)
+    try {
+      await deleteObject(storageRef(storage, `users/${userId}/subscriptions/${docId}/custom_logo.jpg`));
+    } catch (err: any) {
+      if (err?.code !== 'storage/object-not-found') {
+        console.warn('No se pudo borrar el logo de Storage:', err);
+      }
+    }
   } catch (error) {
     handleFirestoreError(error, OperationType.DELETE, `users/${userId}/subscriptions/${docId}`);
     throw error;

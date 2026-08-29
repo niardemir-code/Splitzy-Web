@@ -19,9 +19,6 @@ import {
   IconOption
 } from '../utils/icons';
 import { compressImageToMax512 } from '../utils/imageUtils';
-import { useAuth } from '../context/AuthContext';
-import { storage } from '../lib/firebase';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 interface IconSelectorModalProps {
   isOpen: boolean;
@@ -54,7 +51,6 @@ export const IconSelectorModal: React.FC<IconSelectorModalProps> = ({
   platformName = 'Suscripción',
   subscriptionId,
 }) => {
-  const { user } = useAuth();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [activeTab, setActiveTab] = useState<'PRESET' | 'CUSTOM_IMAGE'>(
@@ -118,32 +114,15 @@ export const IconSelectorModal: React.FC<IconSelectorModalProps> = ({
     setUploadError(null);
 
     try {
-      // 1. Compress image to max 256x256 px (JPEG Data URI and Blob)
+      // Comprimir y quedarnos SOLO con la vista previa local (data URI).
+      // La subida a Storage se hace al guardar la suscripción, no aquí.
       const compressed = await compressImageToMax512(file, 256, 0.7);
-      setCustomImageBase64(compressed.dataUri);
-
-      // 2. Upload compressed image to Firebase Storage if user is signed in
-      if (user?.uid) {
-        const subId = subscriptionId || `sub_${Date.now()}`;
-        const storagePath = `users/${user.uid}/subscriptions/${subId}/custom_logo.jpg`;
-        const storageRef = ref(storage, storagePath);
-
-        await uploadBytes(storageRef, compressed.blob, {
-          contentType: 'image/jpeg',
-        });
-
-        const downloadUrl = await getDownloadURL(storageRef);
-        setCustomImageUri(downloadUrl);
-        // Clear base64 once storage upload succeeds, so we don't save heavy base64 to Firestore
-        setCustomImageBase64('');
-      } else {
-        // If offline / not signed in, keep local preview as uri
-        setCustomImageUri(compressed.dataUri);
-      }
+      setCustomImageUri(compressed.dataUri);
+      setCustomImageBase64('');
       setActiveTab('CUSTOM_IMAGE');
     } catch (err: any) {
-      console.warn('Image compression / Firebase Storage upload error:', err);
-      setUploadError('No se pudo procesar o subir la imagen. Por favor, intenta de nuevo.');
+      console.warn('Image compression error:', err);
+      setUploadError('No se pudo procesar la imagen. Por favor, intenta de nuevo.');
     } finally {
       setIsUploading(false);
     }

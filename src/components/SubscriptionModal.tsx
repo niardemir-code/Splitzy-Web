@@ -24,6 +24,9 @@ import { IconSelectorModal } from './IconSelectorModal';
 import { CurrencyFlag } from './CurrencyFlag';
 import { CurrencySelect } from './CurrencySelect';
 import { PlatformIconBadge, PRESET_SERVICES } from '../utils/icons';
+import { useAuth } from '../context/AuthContext';
+import { storage } from '../lib/firebase';
+import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { 
   X, 
   Plus, 
@@ -92,6 +95,7 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
   subscriptionToEdit,
   initialData,
 }) => {
+  const { user } = useAuth();
   const activeSubToEdit = subscriptionToEdit ?? initialData ?? null;
   const { platforms } = useSharingPlatforms();
   const [showManagePlatforms, setShowManagePlatforms] = useState(false);
@@ -345,7 +349,7 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
     setConfiguredPlatforms((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!platformName.trim()) return;
 
@@ -353,6 +357,24 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
     if (iconType === 'CUSTOM_IMAGE' && !customImageUri && !customImageBase64) {
       setShowIconSelector(true);
       return;
+    }
+
+    // ID final de la suscripción (nuevo o en edición)
+    const finalSubId = activeSubToEdit?.id || newSubId;
+
+    // Subir la imagen personalizada a Storage SOLO al guardar (evita huérfanos).
+    let finalCustomImageUri = iconType === 'CUSTOM_IMAGE' ? (customImageUri || '') : '';
+    if (iconType === 'CUSTOM_IMAGE' && finalCustomImageUri.startsWith('data:') && user?.uid && finalSubId) {
+      try {
+        const resp = await fetch(finalCustomImageUri);
+        const blob = await resp.blob();
+        const sRef = storageRef(storage, `users/${user.uid}/subscriptions/${finalSubId}/custom_logo.jpg`);
+        await uploadBytes(sRef, blob, { contentType: 'image/jpeg' });
+        finalCustomImageUri = await getDownloadURL(sRef);
+      } catch (err) {
+        console.warn('No se pudo subir el logo al guardar; se mantiene la vista previa local:', err);
+        // finalCustomImageUri se queda como data: URI (respaldo offline)
+      }
     }
 
     const serializedPricing = serializePlatformPricing(configuredPlatforms);
@@ -417,8 +439,8 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
       color: iconColorHex || '#1285FA',
       iconType: iconType || 'PRESET',
       iconKey: iconKey || platformName.trim() || 'Netflix',
-      customImageUri: iconType === 'CUSTOM_IMAGE' ? (customImageUri || '') : '',
-      customImageBase64: iconType === 'CUSTOM_IMAGE' ? (customImageBase64 || '') : '',
+      customImageUri: finalCustomImageUri,
+      customImageBase64: '',
     };
 
     if (activeSubToEdit?.id) {

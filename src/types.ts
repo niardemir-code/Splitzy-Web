@@ -148,8 +148,9 @@ export function parsePlatformPricing(raw?: string): PlatformPriceItem[] {
       const pricePerUser = parseFloat(parts[1]) || 0;
       const currency = (parts[2] && parts[2].trim()) ? parts[2].trim().toUpperCase() : 'EUR';
       const period = (parts[3] && parts[3].trim()) ? normalizeBillingPeriod(parts[3].trim()) : undefined;
+      const defaultPaymentMethod = (parts[4] && parts[4].trim()) ? parts[4].trim() : '';
       if (!platformName) return null;
-      return { platformName, pricePerUser, currency, period };
+      return { platformName, pricePerUser, currency, period, defaultPaymentMethod };
     })
     .filter((item): item is PlatformPriceItem => item !== null);
 }
@@ -160,7 +161,8 @@ export function serializePlatformPricing(items: PlatformPriceItem[]): string {
     .map((item) => {
       const curr = item.currency ? item.currency.trim().toUpperCase() : 'EUR';
       const per = item.period ? normalizeBillingPeriod(item.period) : 'MONTHLY';
-      return `${item.platformName.trim()}:${item.pricePerUser}:${curr}:${per}`;
+      const method = (item.defaultPaymentMethod || '').replace(/[:|]/g, '').trim();
+      return `${item.platformName.trim()}:${item.pricePerUser}:${curr}:${per}:${method}`;
     })
     .join('|');
 }
@@ -423,6 +425,7 @@ export interface PlatformPriceItem {
   pricePerUser: number;
   currency?: string;
   period?: BillingPeriod | string;
+  defaultPaymentMethod?: string;
 }
 
 export type PaymentFrequencyUnit = 'days' | 'weeks' | 'months' | 'years';

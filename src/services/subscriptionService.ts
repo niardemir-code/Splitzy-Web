@@ -196,7 +196,7 @@ function parseSafeMembers(rawMembers: any, subBillingDay?: number): Member[] {
       : (typeof m.alarm_days_before === 'number' 
         ? m.alarm_days_before 
         : (alarmUnitVal === 'same_day' ? 0 : alarmUnitVal === 'weeks' ? alarmVal * 7 : (alarmUnitVal === 'months' ? alarmVal * 30 : alarmVal)));
-    const paymentMethodVal = String(m.paymentMethod || m.payment_method || m.method || 'Bizum');
+    const paymentMethodVal = String(m.paymentMethod || m.payment_method || m.method || '');
 
     const joinedDateVal = parseSafeDate(m.joinedDate || m.joined_date || m.createdAt, new Date().toISOString().split('T')[0]).split('T')[0];
 
@@ -486,8 +486,8 @@ export function formatMembersForFirestore(members: Member[], subBillingDay?: num
       isPendingRemoval: Boolean(isPendingRemoval),
       isPendingRegistration: Boolean(isPendingRegistration),
       notes: notesStr,
-      paymentMethod: String(m.paymentMethod || 'Bizum'),
-      payment_method: String(m.paymentMethod || 'Bizum'),
+      paymentMethod: String(m.paymentMethod || ''),
+      payment_method: String(m.paymentMethod || ''),
       nextPaymentDate: calculatedNextPaymentDate,
       next_payment_date: calculatedNextPaymentDate,
       paymentFrequencyValue: typeof m.paymentFrequencyValue === 'number' ? m.paymentFrequencyValue : 1,
@@ -590,7 +590,7 @@ function mergeMemberArrays(...sources: (Member[] | undefined)[]): Member[] {
           memberContact: existing.memberContact || existing.contact || m.memberContact || m.contact || '',
           contact: existing.memberContact || existing.contact || m.memberContact || m.contact || '',
           notes: existing.notes || m.notes || '',
-          paymentMethod: existing.paymentMethod || m.paymentMethod || 'Bizum',
+          paymentMethod: existing.paymentMethod || m.paymentMethod || '',
           nextPaymentDate: existing.nextPaymentDate || m.nextPaymentDate,
           paymentFrequencyValue: existing.paymentFrequencyValue ?? m.paymentFrequencyValue ?? 1,
           paymentFrequencyUnit: existing.paymentFrequencyUnit || m.paymentFrequencyUnit || 'months',

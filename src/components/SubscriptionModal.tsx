@@ -85,6 +85,7 @@ interface PlatformModalState {
   pricePerUser: number | '';
   currency: string;
   period: BillingPeriod;
+  defaultPaymentMethod: string;
 }
 
 export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
@@ -269,6 +270,7 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
       pricePerUser: defaultPrice,
       currency: currency || 'EUR',
       period: billingPeriod || 'MONTHLY',
+      defaultPaymentMethod: '',
     });
   };
 
@@ -283,6 +285,7 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
       pricePerUser: item.pricePerUser,
       currency: item.currency || 'EUR',
       period: (item.period as BillingPeriod) || billingPeriod || 'MONTHLY',
+      defaultPaymentMethod: item.defaultPaymentMethod || '',
     });
   };
 
@@ -297,6 +300,7 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
       : 0;
     const finalCurrency = platformModalState.currency || 'EUR';
     const finalPeriod = platformModalState.period || 'MONTHLY';
+    const finalMethod = (platformModalState.defaultPaymentMethod || '').replace(/[:|]/g, '').trim();
 
     if (platformModalState.mode === 'edit' && platformModalState.index !== undefined) {
       const editIdx = platformModalState.index;
@@ -308,6 +312,7 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
                 pricePerUser: finalPrice,
                 currency: finalCurrency,
                 period: finalPeriod,
+                defaultPaymentMethod: finalMethod,
               }
             : item
         )
@@ -326,6 +331,7 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
                   pricePerUser: finalPrice,
                   currency: finalCurrency,
                   period: finalPeriod,
+                  defaultPaymentMethod: finalMethod,
                 }
               : item
           );
@@ -337,6 +343,7 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
             pricePerUser: finalPrice,
             currency: finalCurrency,
             period: finalPeriod,
+            defaultPaymentMethod: finalMethod,
           },
         ];
       });
@@ -1234,6 +1241,27 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
                   </select>
                   <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
                 </div>
+              </div>
+
+              {/* Field 5: Método habitual por defecto (opcional) */}
+              <div>
+                <label className="block text-xs font-bold text-slate-300 mb-1.5">
+                  Método habitual por defecto (opcional)
+                </label>
+                <input
+                  type="text"
+                  value={platformModalState.defaultPaymentMethod}
+                  onChange={(e) =>
+                    setPlatformModalState((prev) =>
+                      prev ? { ...prev, defaultPaymentMethod: e.target.value } : null
+                    )
+                  }
+                  placeholder="Ej. Bizum, Sharesub Wallet, Joiin..."
+                  className="w-full bg-[#202234] text-slate-100 px-4 py-3 rounded-2xl border border-border/80 text-sm font-medium focus:outline-none focus:border-blue-500"
+                />
+                <p className="text-[11px] text-slate-500 mt-1">
+                  Se usará por defecto en el "Método habitual" de los miembros de esta suscripción.
+                </p>
               </div>
 
               {/* Info banner at bottom */}

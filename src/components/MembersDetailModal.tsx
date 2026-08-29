@@ -76,6 +76,7 @@ export const MembersDetailModal: React.FC<MembersDetailModalProps> = ({
       currency: cp.currency || subscription?.currency || 'EUR',
       period: cp.period,
       colorHex: matched?.colorHex || '#1285FA',
+      defaultPaymentMethod: cp.defaultPaymentMethod || '',
     };
   });
 
@@ -85,7 +86,7 @@ export const MembersDetailModal: React.FC<MembersDetailModalProps> = ({
   const [contact, setContact] = useState('');
   const [amount, setAmount] = useState<number>(availablePlatforms[0]?.pricePerUser || defaultSlotPrice);
   const [memberCurrency, setMemberCurrency] = useState<string>(availablePlatforms[0]?.currency || subscription.currency || 'EUR');
-  const [method, setMethod] = useState('Bizum');
+  const [method, setMethod] = useState('');
   
   // Payment date and frequency (Default nextPaymentDate is blank)
   const [nextPaymentDate, setNextPaymentDate] = useState<string>('');
@@ -183,7 +184,7 @@ export const MembersDetailModal: React.FC<MembersDetailModalProps> = ({
     setContact('');
     setAmount(initAmount);
     setMemberCurrency(initCurr);
-    setMethod('Bizum');
+    setMethod('');
     setNextPaymentDate(initialNextPayment);
     setPaymentFrequencyValue(1);
     setPaymentFrequencyUnit('months');
@@ -209,7 +210,7 @@ export const MembersDetailModal: React.FC<MembersDetailModalProps> = ({
     setAmount(getMemberContributionAmount(subscription, targetMember));
     const targetPlatInfo = getMemberPlatformInfo(subscription, targetMember);
     setMemberCurrency(targetMember.currency || targetPlatInfo.currency || subscription.currency || 'EUR');
-    setMethod(targetMember.paymentMethod || 'Bizum');
+    setMethod(targetMember.paymentMethod || '');
     
     const computedNext = resolveMemberNextPaymentDate(targetMember, subscription.billingDay);
     setNextPaymentDate(targetMember.nextPaymentDate || computedNext);
@@ -423,6 +424,8 @@ export const MembersDetailModal: React.FC<MembersDetailModalProps> = ({
           setPaymentFrequencyUnit('years');
         }
       }
+      // Autocompletar el método habitual solo si está vacío (nunca pisa lo escrito a mano)
+      setMethod((prev) => (prev.trim() ? prev : (match.defaultPaymentMethod || '')));
     }
   };
 

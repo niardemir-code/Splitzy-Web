@@ -129,6 +129,7 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
   const [currency, setCurrency] = useState<string>('EUR');
   const [billingPeriod, setBillingPeriod] = useState<BillingPeriod>('MONTHLY');
   const [billingDay, setBillingDay] = useState<number>(1);
+  const [freeSlots, setFreeSlots] = useState<number>(0);
   const [billingMonth, setBillingMonth] = useState<number>(1);
   const [notes, setNotes] = useState('');
 
@@ -172,6 +173,7 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
       const bDay = activeSubToEdit.billingDay || 1;
       const bMonth = activeSubToEdit.billingMonth || 1;
       setBillingDay(bDay);
+      setFreeSlots(activeSubToEdit.freeSlots ?? 0);
       setBillingMonth(bMonth);
       setNotes(activeSubToEdit.notes || '');
 
@@ -210,6 +212,7 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
       setCurrency('EUR');
       setBillingPeriod('MONTHLY');
       setBillingDay(1);
+      setFreeSlots(0);
       setBillingMonth(1);
       setNotes('');
 
@@ -433,6 +436,7 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
       billingPeriod: billingPeriod,
       billingCycle: billingPeriod === 'YEARLY' ? 'yearly' : 'monthly',
       billingDay: Number(billingDay) || 1,
+      freeSlots: Number(freeSlots) || 0,
       billingMonth: billingPeriod === 'MONTHLY' ? 1 : Number(billingMonth) || 1,
       renewalDate: renewalDate || fallbackRenewal,
       enableAlarm: Boolean(enableAlarm),
@@ -622,6 +626,19 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
                   onChange={(val) => setCurrency(val)}
                 />
               </div>
+            </div>
+
+            {/* Huecos libres (plazas para otros) */}
+            <div>
+              <label className="block text-xs font-bold text-slate-300 mb-1.5">Huecos libres (plazas para otros)</label>
+              <input
+                type="number"
+                min={0}
+                value={freeSlots}
+                onChange={(e) => setFreeSlots(Math.max(0, Number(e.target.value) || 0))}
+                className="w-full bg-[#202234] text-slate-100 px-4 py-3 rounded-2xl border border-border/80 text-sm font-medium focus:outline-none focus:border-blue-500"
+              />
+              <p className="text-[11px] text-slate-500 mt-1">El gestor ocupa 1 plaza. La capacidad total será 1 + huecos.</p>
             </div>
 
             {/* 5. Periodo de facturación, Fecha de renovación y Sistema de alarmas */}

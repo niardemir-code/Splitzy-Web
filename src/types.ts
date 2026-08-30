@@ -477,6 +477,7 @@ export interface Subscription {
   billingPeriod: BillingPeriod; // 'MONTHLY' | 'QUARTERLY' | 'SEMI_ANNUAL' | 'YEARLY'
   currency: string; // 'EUR', 'GHS', 'USD', '€', '$', etc.
   billingDay: number; // Día del mes en que se factura (1-31)
+  freeSlots?: number; // Nº de huecos libres. Capacidad = 1 (gestor) + freeSlots
   billingMonth?: number; // Mes de cobro/inicio del ciclo (1-12)
   defaultContributionPerUser?: number; // Aporte sugerido por usuario
   platformPricing?: string; // Serializado de hasta 3 plataformas con precio: "Sharesub:3.50|Spliiit:4.00"

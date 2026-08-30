@@ -81,6 +81,11 @@ export const SubscriptionCard: React.FC<SubscriptionCardProps> = ({
 
   // Members contribution in EUR
   const members = subscription.members || [];
+  const sortedMembers = [...members].sort((a, b) => {
+    const da = a.nextPaymentDate ? new Date(a.nextPaymentDate).getTime() : Infinity;
+    const db = b.nextPaymentDate ? new Date(b.nextPaymentDate).getTime() : Infinity;
+    return da - db;
+  });
   const totalMemberIncomeInEur = members.reduce((sum, m) => {
     const mInfo = getMemberPlatformInfo(subscription, m);
     const mAmount = getMemberContributionAmount(subscription, m);
@@ -335,7 +340,7 @@ export const SubscriptionCard: React.FC<SubscriptionCardProps> = ({
             </div>
           ) : (
             <div className="space-y-2 max-h-52 overflow-y-auto pr-1">
-              {members.map((member) => {
+              {sortedMembers.map((member) => {
                 const memberDisplayName = member.memberName || member.name || 'Miembro';
                 const memberPlatform = member.sharingPlatform || member.platform || '';
                 const memberCost = getMemberContributionAmount(subscription, member);

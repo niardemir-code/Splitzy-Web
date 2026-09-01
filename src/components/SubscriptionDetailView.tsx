@@ -100,6 +100,8 @@ export const SubscriptionDetailView: React.FC<SubscriptionDetailViewProps> = ({
   const isForeign = !isEur(originalCurrency);
 
   const members = subscription.members || [];
+  const capacity = subscription.freeSlots ?? 0;
+  const isFull = capacity > 0 && members.length >= capacity;
   const sortedMembers = [...members].sort((a, b) => {
     const da = a.nextPaymentDate ? new Date(a.nextPaymentDate).getTime() : Infinity;
     const db = b.nextPaymentDate ? new Date(b.nextPaymentDate).getTime() : Infinity;
@@ -553,14 +555,20 @@ export const SubscriptionDetailView: React.FC<SubscriptionDetailViewProps> = ({
               {/* Botón Añadir usuario debajo del último usuario */}
               <button
                 id="btn-detail-add-member"
-                onClick={() => onManageMembers(subscription)}
+                onClick={() => { if (!isFull) onManageMembers(subscription); }}
                 type="button"
-                className="w-full mt-2 py-3 px-4 rounded-2xl border-2 border-dashed border-blue-500/30 hover:border-blue-500 bg-blue-500/5 hover:bg-blue-500/10 text-blue-600 dark:text-blue-400 text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs active:scale-[0.99]"
-                title="Añadir un nuevo co-suscriptor"
+                disabled={isFull}
+                className={`w-full mt-2 py-3 px-4 rounded-2xl border-2 border-dashed border-blue-500/30 hover:border-blue-500 bg-blue-500/5 hover:bg-blue-500/10 text-blue-600 dark:text-blue-400 text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs active:scale-[0.99] ${isFull ? 'opacity-40 cursor-not-allowed pointer-events-none' : ''}`}
+                title={isFull ? `Has alcanzado los ${capacity} huecos` : "Añadir un nuevo co-suscriptor"}
               >
                 <UserPlus className="w-4 h-4 text-blue-500" />
                 <span>Añadir usuario</span>
               </button>
+              {isFull && (
+                <p className="text-[11px] text-muted-foreground text-center mt-2">
+                  Has alcanzado el número de huecos ({capacity}). Aumenta los huecos en la suscripción para añadir más.
+                </p>
+              )}
             </div>
           )}
         </div>

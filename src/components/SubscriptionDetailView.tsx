@@ -21,6 +21,7 @@ import {
   Edit2, 
   Trash2, 
   UserPlus, 
+  Send,
   CheckCircle2,
   FileText,
   ArrowLeft,
@@ -29,6 +30,7 @@ import {
   Calendar,
   Hourglass
 } from 'lucide-react';
+import { createInvite, formatInviteCode } from '../services/subscriptionService';
 
 interface SubscriptionDetailViewProps {
   subscription: Subscription | null;
@@ -54,6 +56,8 @@ export const SubscriptionDetailView: React.FC<SubscriptionDetailViewProps> = ({
 }) => {
   const [isUpdating, setIsUpdating] = useState(false);
   const [confirmDeleteMemberId, setConfirmDeleteMemberId] = useState<string | number | null>(null);
+  const [inviteCode, setInviteCode] = useState<string | null>(null);
+  const [invMsg, setInvMsg] = useState('');
   const { convertToEur, isEur, getRateFor } = useCurrency();
   const { platforms } = useSharingPlatforms();
 
@@ -86,6 +90,29 @@ export const SubscriptionDetailView: React.FC<SubscriptionDetailViewProps> = ({
     }).catch((err) => {
       console.error('Error deleting member directly:', err);
     });
+  };
+
+  const handleGenerateInvite = async () => {
+    if (!subscription) return;
+    try {
+      setInvMsg('Generando...');
+      const code = await createInvite(subscription);
+      setInviteCode(code);
+      setInvMsg('');
+    } catch (e) {
+      console.warn('Error al crear invitación:', e);
+      setInvMsg('No se pudo generar el código. Revisa tu conexión o los permisos.');
+    }
+  };
+
+  const handleCopyInvite = async () => {
+    if (!inviteCode) return;
+    try {
+      await navigator.clipboard.writeText(formatInviteCode(inviteCode));
+      setInvMsg('¡Copiado!');
+    } catch {
+      setInvMsg('No se pudo copiar');
+    }
   };
 
   // Multi-currency and period calculations
@@ -568,6 +595,40 @@ export const SubscriptionDetailView: React.FC<SubscriptionDetailViewProps> = ({
                 <p className="text-[11px] text-muted-foreground text-center mt-2">
                   Has alcanzado el número de huecos ({capacity}). Aumenta los huecos en la suscripción para añadir más.
                 </p>
+              )}
+
+              {/* Invitar a un hueco libre */}
+              {capacity > 0 && !isFull && (
+                <div className="mt-2">
+                  <button
+                    type="button"
+                    onClick={handleGenerateInvite}
+                    className="w-full py-3 px-4 rounded-2xl border-2 border-dashed border-emerald-500/30 hover:border-emerald-500 bg-emerald-500/5 hover:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <Send className="w-4 h-4" />
+                    <span>Invitar a un hueco</span>
+                  </button>
+
+                  {inviteCode && (
+                    <div className="mt-2 p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-center">
+                      <p className="text-[11px] text-muted-foreground">Código de invitación (caduca en 7 días):</p>
+                      <p className="text-lg font-black tracking-widest text-emerald-600 dark:text-emerald-400 my-1">
+                        {formatInviteCode(inviteCode)}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={handleCopyInvite}
+                        className="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline"
+                      >
+                        Copiar código
+                      </button>
+                    </div>
+                  )}
+
+                  {invMsg && (
+                    <p className="text-[11px] text-muted-foreground text-center mt-1">{invMsg}</p>
+                  )}
+                </div>
               )}
             </div>
           )}

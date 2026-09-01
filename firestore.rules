@@ -22,5 +22,12 @@ service cloud.firestore {
         allow read, write: if isOwner(userId);
       }
     }
+
+    // Invites collection for claiming slots
+    match /invites/{code} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && request.resource.data.ownerUid == request.auth.uid;
+      allow update, delete: if isSignedIn() && resource.data.ownerUid == request.auth.uid;
+    }
   }
 }

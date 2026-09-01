@@ -1,6 +1,7 @@
 import { 
   collection, 
   doc, 
+  getDoc,
   onSnapshot, 
   setDoc, 
   updateDoc, 
@@ -1279,5 +1280,38 @@ export async function batchImportSubscriptions(
     handleFirestoreError(error, OperationType.WRITE, path);
     throw error;
   }
+}
+
+// --- Invitaciones ---
+function generateInviteCode(): string {
+  const alphabet = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'; // sin 0/O, 1/I/L
+  let s = '';
+  for (let i = 0; i < 6; i++) s += alphabet[Math.floor(Math.random() * alphabet.length)];
+  return s;
+}
+
+export function formatInviteCode(code: string): string {
+  return code && code.length === 6 ? `${code.slice(0, 3)}-${code.slice(3)}` : code;
+}
+
+export async function createInvite(subscription: Subscription): Promise<string> {
+  let code = generateInviteCode();
+  // Evitar colisiones (muy improbables, pero por seguridad)
+  for (let i = 0; i < 5; i++) {
+    const snap = await getDoc(doc(db, 'invites', code));
+    if (!snap.exists()) break;
+    code = generateInviteCode();
+  }
+  const expiresAt = new Date();
+  expiresAt.setDate(expiresAt.getDate() + 7);
+  await setDoc(doc(db, 'invites', code), {
+    code,
+    groupId: String(subscription.id),
+    ownerUid: subscription.userId || '',
+    consumed: false,
+    createdAt: new Date().toISOString(),
+    expiresAt: expiresAt.toISOString(),
+  });
+  return code;
 }
 

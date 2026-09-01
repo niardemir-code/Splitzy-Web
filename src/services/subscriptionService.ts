@@ -220,6 +220,7 @@ function parseSafeMembers(rawMembers: any, subBillingDay?: number): Member[] {
     return {
       id: memberIdStr,
       subscriptionId: m.subscriptionId ? String(m.subscriptionId) : (m.subscription_id ? String(m.subscription_id) : undefined),
+      linkedUid: m.linkedUid !== undefined ? m.linkedUid : (m.linked_uid !== undefined ? m.linked_uid : null),
       name: rawName,
       memberName: rawName,
       platform: matchedPlatform,
@@ -399,6 +400,7 @@ export function normalizeSubscriptionDoc(id: string, data: any, defaultUserId: s
     alarmDaysBefore: alarmDaysVal,
     notes: String(data.notes || data.description || ''),
     members: rawMembers,
+    memberUids: Array.isArray(data.memberUids) ? data.memberUids : (Array.isArray(data.member_uids) ? data.member_uids : undefined),
     color: iconColorHex,
     iconColorHex: iconColorHex,
     iconType: iconType,
@@ -489,6 +491,8 @@ export function formatMembersForFirestore(members: Member[], subBillingDay?: num
       notes: notesStr,
       paymentMethod: String(m.paymentMethod || ''),
       payment_method: String(m.paymentMethod || ''),
+      linkedUid: m.linkedUid ?? null,
+      linked_uid: m.linkedUid ?? null,
       nextPaymentDate: calculatedNextPaymentDate,
       next_payment_date: calculatedNextPaymentDate,
       paymentFrequencyValue: typeof m.paymentFrequencyValue === 'number' ? m.paymentFrequencyValue : 1,
@@ -786,6 +790,11 @@ export function toAndroidSubscriptionPayload(sub: Partial<Subscription>, userId:
 
   if (sub.members !== undefined) {
     payload.members = formatMembersForFirestore(sub.members, sub.billingDay);
+  }
+
+  if (sub.memberUids !== undefined) {
+    payload.memberUids = sub.memberUids;
+    payload.member_uids = sub.memberUids;
   }
 
   payload.updatedAt = new Date().toISOString();

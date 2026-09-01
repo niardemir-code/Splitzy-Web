@@ -434,6 +434,7 @@ export type AlarmUnit = 'same_day' | 'hours' | 'days' | 'weeks' | 'months';
 export interface Member {
   id: string;
   subscriptionId?: string | number;
+  linkedUid?: string | null; // UID del usuario real que ocupa esta plaza (null = miembro manual)
   name?: string; // Web alias
   memberName: string; // Android exact
   platform?: string; // Web alias
@@ -488,6 +489,7 @@ export interface Subscription {
   alarmDaysBefore?: number; // Antelación en días (compatibilidad)
   notes?: string;
   members: Member[];
+  memberUids?: string[]; // Espejo de UIDs de plazas reclamadas (para "Participo en"). Se rellenará al reclamar.
   color?: string; // Hex color
   iconColorHex: string; // Android exact (#1285FA)
   iconType: 'PRESET' | 'VECTOR' | 'CUSTOM_IMAGE' | string;
